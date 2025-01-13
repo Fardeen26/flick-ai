@@ -13,11 +13,12 @@ import {
 } from "@/components/ui/select"
 import Image from "next/image";
 import { Textarea } from "./ui/textarea";
+import TypeWriter from './TypeWriter';
 
 export default function Main() {
     const [tweet, setTweet] = useState('');
-    const [mood, setMood] = useState('');
-    const [action, setAction] = useState('');
+    const [mood, setMood] = useState('Casual');
+    const [action, setAction] = useState('Formatting');
     const [result, setResult] = useState('');
     const [regenerating, setRegenerating] = useState(false);
     const [improvePrompt, setImprovePrompt] = useState('');
@@ -32,6 +33,10 @@ export default function Main() {
             setIsImprovingField(true);
             return;
         };
+        if (!improvePrompt && isImprovingField) {
+            setIsImprovingField(false);
+            return;
+        }
         const response = await axios.post('/api/improve', { result, mood, action, improvePrompt, tweet });
         setResult(response.data.text);
         setImprovePrompt('');
@@ -39,15 +44,21 @@ export default function Main() {
     }
     return (
         <main>
-            <div className="w-[60vw] relative pt-6 pb-2 px-4 bg-white rounded-xl bg-opacity-5 backdrop-blur-lg border dark:border-white/20 flex flex-col items-center justify-center dark:shadow-none shadow">
-                <Textarea onChange={(e) => setTweet(e.target.value)} placeholder="Paste your tweet" className="h-fit text-white w-full bg-transparent focus:outline-none focus:border-none" />
+            <div className="w-[60vw] relative pt-6 pb-2 px-4 bg-white rounded-xl bg-opacity-10 backdrop-blur-lg border border-white/20 flex flex-col items-center justify-center dark:shadow-none shadow">
+                <Textarea
+                    onChange={(e) => setTweet(e.target.value)}
+                    placeholder="Paste your tweet"
+                    className="h-fit text-white w-full bg-transparent focus:outline-none focus:border-none"
+                    rows={2}
+                />
+
                 <div className="flex justify-between items-end w-full mt-6">
                     <div className="flex gap-3">
                         <div>
                             <Select onValueChange={(value: string) => {
                                 setMood(value);
                             }}>
-                                <SelectTrigger className="w-[110px]">
+                                <SelectTrigger className="w-[95px] text-xs bg-transparent rounded-lg before:bg-opacity-90 backdrop-blur-lg border border-white/20 text-white p-2">
                                     <SelectValue placeholder="Casual" />
                                 </SelectTrigger>
                                 <SelectContent>
@@ -65,7 +76,7 @@ export default function Main() {
                             <Select onValueChange={(value: string) => {
                                 setAction(value);
                             }}>
-                                <SelectTrigger className="w-[120px]">
+                                <SelectTrigger className="w-[100px] text-xs bg-transparent rounded-lg before:bg-opacity-5 backdrop-blur-lg border border-white/20 text-white p-2">
                                     <SelectValue placeholder="Formatting" />
                                 </SelectTrigger>
                                 <SelectContent>
@@ -78,8 +89,8 @@ export default function Main() {
                         </div>
                     </div>
                     <div className="">
-                        <button className="bg-transparent rounded-lg before:bg-opacity-5 backdrop-blur-lg border dark:border-white/20 text-white p-2" onClick={handleGenerate}>
-                            <FaTurnUp />
+                        <button className="bg-transparent rounded-lg before:bg-opacity-5 backdrop-blur-lg border border-white/20 text-white p-2" onClick={handleGenerate}>
+                            <FaTurnUp className="text-xs" />
                         </button>
                     </div>
                 </div>
@@ -92,16 +103,19 @@ export default function Main() {
                         value={improvePrompt}
                         className={`text-black w-0 transition-all duration-300 ${isImprovingField ? 'w-[30vw] px-2' : 'w-0'} bg-white rounded-lg`}
                     />
-                    <button onClick={handleRegenerate} className="bg-transparent rounded-lg before:bg-opacity-5 backdrop-blur-lg border dark:border-white/20 text-white p-2">
+                    <button onClick={handleRegenerate} className="bg-transparent rounded-lg before:bg-opacity-5 backdrop-blur-lg border border-white/20 text-white p-2">
                         <Image src="/spark.png" alt="refresh" width={15} height={15} />
                     </button>
-                    <button onClick={() => setRegenerating(!regenerating)} className={`bg-transparent rounded-lg before:bg-opacity-5 backdrop-blur-lg border dark:border-white/20 text-white p-2 ${result ? 'block' : 'hidden'}`}>
+                    <button onClick={() => setRegenerating(!regenerating)} className={`bg-transparent rounded-lg before:bg-opacity-5 backdrop-blur-lg border border-white/20 text-white p-2 ${result ? 'block' : 'hidden'}`}>
                         <IoRefreshSharp />
                     </button>
                 </div>
 
-                <div className="text-white w-full mt-6">{result}</div>
+                <div className="text-white w-full mt-6">
+                    <TypeWriter text={result} speed={30} />
+                </div>
             </div>
+
         </main>
     )
 }
