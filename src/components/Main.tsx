@@ -3,7 +3,7 @@
 import { useState, useRef } from "react";
 import axios from "axios";
 import { FaTurnUp } from "react-icons/fa6";
-import { IoRefreshSharp } from "react-icons/io5";
+import { IoMdCopy } from "react-icons/io";
 import {
     Select,
     SelectContent,
@@ -20,7 +20,6 @@ export default function Main() {
     const [mood, setMood] = useState('Casual');
     const [action, setAction] = useState('Formatting');
     const [result, setResult] = useState('');
-    const [regenerating, setRegenerating] = useState(false);
     const [improvePrompt, setImprovePrompt] = useState('');
     const [isImprovingField, setIsImprovingField] = useState(false);
     const textareaRef = useRef<HTMLTextAreaElement>(null);
@@ -35,6 +34,7 @@ export default function Main() {
 
     const handleGenerate = async () => {
         const response = await axios.post('/api/generate', { tweet, mood, action });
+        console.log(response.data.text);
         setResult(response.data.text);
     }
     const handleRegenerate = async () => {
@@ -51,6 +51,11 @@ export default function Main() {
         setImprovePrompt('');
         setIsImprovingField(false);
     }
+
+    const copyToClipboard = () => {
+        if (!result) return;
+        navigator.clipboard.writeText(result);
+    };
     return (
         <main>
             <div className="w-[60vw] relative pt-6 pb-2 px-4 bg-white rounded-xl bg-opacity-10 backdrop-blur-lg border border-white/20 flex flex-col items-center justify-center dark:shadow-none shadow">
@@ -108,7 +113,7 @@ export default function Main() {
                     </div>
                 </div>
             </div>
-            <div className={`flex flex-col gap-2 border w-[60vw] mt-6 p-3 ${result ? 'block' : 'hidden'}`}>
+            <div className={`flex flex-col gap-2 w-[60vw] mt-6 p-3 ${result ? 'block' : 'hidden'}`}>
                 <div className="flex justify-end gap-2 relative" >
                     <input
                         type="text"
@@ -119,12 +124,12 @@ export default function Main() {
                     <button onClick={handleRegenerate} className="bg-transparent rounded-lg before:bg-opacity-5 backdrop-blur-lg border border-white/20 text-white p-2">
                         <Image src="/spark.png" alt="refresh" width={15} height={15} />
                     </button>
-                    <button onClick={() => setRegenerating(!regenerating)} className={`bg-transparent rounded-lg before:bg-opacity-5 backdrop-blur-lg border border-white/20 text-white p-2 ${result ? 'block' : 'hidden'}`}>
-                        <IoRefreshSharp />
+                    <button onClick={copyToClipboard} className={`bg-transparent rounded-lg before:bg-opacity-5 backdrop-blur-lg border border-white/20 text-white p-2 ${result ? 'block' : 'hidden'}`}>
+                        <IoMdCopy />
                     </button>
                 </div>
 
-                <div className="text-white w-full mt-6">
+                <div className="text-white w-full mt-3">
                     <TypeWriter text={result} speed={30} />
                 </div>
             </div>
