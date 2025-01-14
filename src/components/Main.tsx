@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react";
+import { useState, useRef } from "react";
 import axios from "axios";
 import { FaTurnUp } from "react-icons/fa6";
 import { IoRefreshSharp } from "react-icons/io5";
@@ -23,6 +23,15 @@ export default function Main() {
     const [regenerating, setRegenerating] = useState(false);
     const [improvePrompt, setImprovePrompt] = useState('');
     const [isImprovingField, setIsImprovingField] = useState(false);
+    const textareaRef = useRef<HTMLTextAreaElement>(null);
+
+    const adjustTextareaHeight = () => {
+        const textarea = textareaRef.current;
+        if (textarea) {
+            textarea.style.height = 'auto';
+            textarea.style.height = `${textarea.scrollHeight}px`;
+        }
+    };
 
     const handleGenerate = async () => {
         const response = await axios.post('/api/generate', { tweet, mood, action });
@@ -46,10 +55,14 @@ export default function Main() {
         <main>
             <div className="w-[60vw] relative pt-6 pb-2 px-4 bg-white rounded-xl bg-opacity-10 backdrop-blur-lg border border-white/20 flex flex-col items-center justify-center dark:shadow-none shadow">
                 <Textarea
-                    onChange={(e) => setTweet(e.target.value)}
+                    ref={textareaRef}
+                    onChange={(e) => {
+                        setTweet(e.target.value);
+                        adjustTextareaHeight();
+                    }}
                     placeholder="Paste your tweet"
-                    className="h-fit text-white w-full bg-transparent focus:outline-none focus:border-none"
-                    rows={2}
+                    className="h-fit text-white w-full bg-transparent focus:outline-none focus:border-none max-h-[300px]"
+                    rows={1}
                 />
 
                 <div className="flex justify-between items-end w-full mt-6">
