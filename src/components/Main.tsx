@@ -76,7 +76,7 @@ export default function Main() {
                             <Select onValueChange={(value: string) => {
                                 setMood(value);
                             }}>
-                                <SelectTrigger className="w-[95px] text-xs bg-transparent rounded-lg before:bg-opacity-90 backdrop-blur-lg border border-white/20 text-white p-2">
+                                <SelectTrigger className="w-[95px] hover:bg-white/10 transition-all duration-300 text-xs bg-transparent rounded-lg before:bg-opacity-90 backdrop-blur-lg border border-white/20 text-white p-2">
                                     <SelectValue placeholder="Casual" />
                                 </SelectTrigger>
                                 <SelectContent>
@@ -90,11 +90,11 @@ export default function Main() {
                             </Select>
 
                         </div>
-                        <div className="">
+                        <div>
                             <Select onValueChange={(value: string) => {
                                 setAction(value);
                             }}>
-                                <SelectTrigger className="w-[100px] text-xs bg-transparent rounded-lg before:bg-opacity-5 backdrop-blur-lg border border-white/20 text-white p-2">
+                                <SelectTrigger className="w-[100px] hover:bg-white/10 transition-all duration-300 text-xs bg-transparent rounded-lg before:bg-opacity-5 backdrop-blur-lg border border-white/20 text-white p-2">
                                     <SelectValue placeholder="Formatting" />
                                 </SelectTrigger>
                                 <SelectContent>
@@ -106,8 +106,8 @@ export default function Main() {
 
                         </div>
                     </div>
-                    <div className="">
-                        <button className="bg-transparent rounded-lg before:bg-opacity-5 backdrop-blur-lg border border-white/20 text-white p-2" onClick={handleGenerate}>
+                    <div>
+                        <button className="bg-transparent rounded-lg before:bg-opacity-5 hover:bg-white/10 transition-all duration-300 backdrop-blur-lg border border-white/20 text-white p-2" onClick={handleGenerate}>
                             <FaTurnUp className="text-xs" />
                         </button>
                     </div>

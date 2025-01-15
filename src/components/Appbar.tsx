@@ -15,15 +15,21 @@ export default function Appbar() {
                 </h1>
 
                 <ul className="flex gap-4">
-                    <li><Link href="/">
-                        <FaSquareXTwitter className="w-4 h-4" />
-                    </Link></li>
-                    <li><Link href="/about">
-                        <GiWireframeGlobe className="w-4 h-4" />
-                    </Link></li>
-                    <li><Link href="/about">
-                        <FaGithub className="w-4 h-4" />
-                    </Link></li>
+                    <li>
+                        <Link href="/">
+                            <FaSquareXTwitter className="w-4 h-4 hover:scale-110 transition-all duration-300" />
+                        </Link>
+                    </li>
+                    <li>
+                        <Link href="/about">
+                            <GiWireframeGlobe className="w-4 h-4 hover:scale-110 transition-all duration-300" />
+                        </Link>
+                    </li>
+                    <li>
+                        <Link href="/about">
+                            <FaGithub className="w-4 h-4 hover:scale-110 transition-all duration-300" />
+                        </Link>
+                    </li>
                 </ul>
             </nav>
         </header>

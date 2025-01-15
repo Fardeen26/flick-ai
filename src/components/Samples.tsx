@@ -6,7 +6,7 @@ export default function Samples() {
         <section className="mt-3">
             <div className="flex gap-5">
                 {samples.map((sample, index) => (
-                    <button key={index} className="flex items-center gap-2 bg-transparent rounded-full before:bg-opacity-5 backdrop-blur-lg border border-white/20 text-white p-1">
+                    <button key={index} className="flex items-center gap-2 hover:bg-white/10 transition-all duration-300 bg-transparent rounded-full before:bg-opacity-5 backdrop-blur-lg border border-white/20 text-white p-1">
                         <span className="text-xs font-semibold">
                             {sample}
                         </span>
