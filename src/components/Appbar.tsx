@@ -16,17 +16,17 @@ export default function Appbar() {
 
                 <ul className="flex gap-4">
                     <li>
-                        <Link href="/">
+                        <Link href="https://x.com/fardeen14693425">
                             <FaSquareXTwitter className="w-4 h-4 hover:scale-110 transition-all duration-300" />
                         </Link>
                     </li>
                     <li>
-                        <Link href="/about">
+                        <Link href="https://fardeen.tech/">
                             <GiWireframeGlobe className="w-4 h-4 hover:scale-110 transition-all duration-300" />
                         </Link>
                     </li>
                     <li>
-                        <Link href="/about">
+                        <Link href="https://github.com/Fardeen26">
                             <FaGithub className="w-4 h-4 hover:scale-110 transition-all duration-300" />
                         </Link>
                     </li>
