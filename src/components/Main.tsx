@@ -14,15 +14,16 @@ import {
 import Image from "next/image";
 import { Textarea } from "./ui/textarea";
 import TypeWriter from './TypeWriter';
+import { useTweet } from "@/hooks/useTweet";
 
 export default function Main() {
-    const [tweet, setTweet] = useState('');
     const [mood, setMood] = useState('Casual');
     const [action, setAction] = useState('Formatting');
     const [result, setResult] = useState('');
     const [improvePrompt, setImprovePrompt] = useState('');
     const [isImprovingField, setIsImprovingField] = useState(false);
     const textareaRef = useRef<HTMLTextAreaElement>(null);
+    const { tweet, setTweet } = useTweet();
 
     const adjustTextareaHeight = () => {
         const textarea = textareaRef.current;
@@ -37,6 +38,7 @@ export default function Main() {
         console.log(response.data.text);
         setResult(response.data.text);
     }
+
     const handleRegenerate = async () => {
         if (!improvePrompt) {
             setIsImprovingField(true);
@@ -56,6 +58,7 @@ export default function Main() {
         if (!result) return;
         navigator.clipboard.writeText(result);
     };
+
     return (
         <main>
             <div className="w-[60vw] relative pt-6 pb-2 px-4 bg-white rounded-xl bg-opacity-10 backdrop-blur-lg border border-white/20 flex flex-col items-center justify-center dark:shadow-none shadow">
@@ -119,7 +122,7 @@ export default function Main() {
                         type="text"
                         onChange={(e) => setImprovePrompt(e.target.value)}
                         value={improvePrompt}
-                        className={`text-black w-0 transition-all duration-300 ${isImprovingField ? 'w-[30vw] px-2' : 'w-0'} bg-white rounded-lg`}
+                        className={`text-white w-0 transition-all duration-300 ${isImprovingField ? 'w-[30vw] px-2' : 'w-0'} bg-white rounded-lg bg-opacity-10 backdrop-blur-lg border border-white/20 focus:outline-none focus:border-none`}
                     />
                     <button onClick={handleRegenerate} className="bg-transparent rounded-lg before:bg-opacity-5 backdrop-blur-lg border border-white/20 text-white p-2">
                         <Image src="/spark.png" alt="refresh" width={15} height={15} />
