@@ -1,3 +1,5 @@
+'use client';
+
 import { useTweet } from "@/hooks/useTweet";
 import { samples } from "../constants/smaples";
 import { FiArrowUpRight } from "react-icons/fi";

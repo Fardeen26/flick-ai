@@ -64,6 +64,7 @@ export default function Main() {
             <div className="w-[60vw] relative pt-6 pb-2 px-4 bg-white rounded-xl bg-opacity-10 backdrop-blur-lg border border-white/20 flex flex-col items-center justify-center dark:shadow-none shadow">
                 <Textarea
                     ref={textareaRef}
+                    value={tweet}
                     onChange={(e) => {
                         setTweet(e.target.value);
                         adjustTextareaHeight();

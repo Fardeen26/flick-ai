@@ -13,5 +13,7 @@ export default function TweetProvider({ children }:
     { children: React.ReactNode }
 ) {
     const [tweet, setTweet] = useState('');
-    return <TweetContext.Provider value={{ tweet, setTweet }}> {children} </TweetContext.Provider>;
+    return <TweetContext.Provider value={{ tweet, setTweet }}>
+        {children}
+    </TweetContext.Provider>;
 };
