@@ -40,11 +40,12 @@ export default function Main() {
     }
 
     const handleRegenerate = async () => {
-        if (!improvePrompt) {
+        if (!isImprovingField && !improvePrompt) {
             setIsImprovingField(true);
             return;
         };
-        if (!improvePrompt && isImprovingField) {
+        if (isImprovingField && !improvePrompt) {
+            console.log("improvePrompt", improvePrompt);
             setIsImprovingField(false);
             return;
         }
@@ -123,7 +124,7 @@ export default function Main() {
                         type="text"
                         onChange={(e) => setImprovePrompt(e.target.value)}
                         value={improvePrompt}
-                        className={`text-white w-0 transition-all duration-300 ${isImprovingField ? 'w-[30vw] px-2' : 'w-0'} bg-white rounded-lg bg-opacity-10 backdrop-blur-lg border border-white/20 focus:outline-none focus:border-none`}
+                        className={`text-white w-0 transition-all duration-300 ${isImprovingField ? 'w-[30vw] px-2 border border-white/20' : 'w-0'} bg-white rounded-lg bg-opacity-10 backdrop-blur-lg focus:outline-none focus:border-none`}
                     />
                     <button onClick={handleRegenerate} className="bg-transparent rounded-lg before:bg-opacity-5 backdrop-blur-lg border border-white/20 text-white p-2">
                         <Image src="/spark.png" alt="refresh" width={15} height={15} />

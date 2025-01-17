@@ -3,13 +3,10 @@ import Appbar from "@/components/Appbar";
 import { Bricolage_Grotesque } from "next/font/google";
 import "./globals.css";
 
-
 const bricolage_grotesque_init = Bricolage_Grotesque({
   subsets: ["latin"],
   display: "swap",
 });
-
-
 
 export const metadata: Metadata = {
   title: "Refiner",
