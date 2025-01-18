@@ -1,13 +1,16 @@
 import { GoogleGenerativeAI } from '@google/generative-ai';
 import { NextResponse } from 'next/server';
+import { mindset } from '../generate/route';
 
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY as string);
 
 export async function POST(req: Request) {
     const { tweet, result, mood, action, improvePrompt } = await req.json();
     const prompt = `System Instruction:
-    "You are an AI assistant helping users refine tweets to better suit their needs. Always maintain clarity and align with the user's selected mood, action, and instructions. Ensure the tone and style remain consistent with their preferences."
+    "You are an AI assistant helping users refine tweets to better suit their needs. Always maintain clarity and align with the user's selected mood, action, and instructions and please avoid using hashtags and emojis. Ensure the tone and style remain consistent with their preferences."
 
+    0. Mindset: generate the text based on my mindset: ${mindset}
+    1. Keep the length of the tweet as minimal as possible and the length of the tweet should be more than 270 characters.
     User Prompt:
     ${improvePrompt}
 

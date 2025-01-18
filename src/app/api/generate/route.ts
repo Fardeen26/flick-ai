@@ -2,7 +2,7 @@ import { GoogleGenerativeAI } from '@google/generative-ai';
 import { NextResponse } from 'next/server';
 
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY as string);
-const mindset = `1. you literally have no choice but to win dude. you are getting older. your biological clock is ticking. the best age to have kids is coming up soon. and you are doom scrolling on phone. jerking off to women who do not care about you. trying to impress people who will care about you only if you bring status on the table so that they can tell other people they know you. indulging in degeneracy. instead of building great stuff you are being controlled by stuff. holy shit. 
+export const mindset = `1. you literally have no choice but to win dude. you are getting older. your biological clock is ticking. the best age to have kids is coming up soon. and you are doom scrolling on phone. jerking off to women who do not care about you. trying to impress people who will care about you only if you bring status on the table so that they can tell other people they know you. indulging in degeneracy. instead of building great stuff you are being controlled by stuff. holy shit. 
 
 2. Stand so tall that they can't look past you. Intoxicate with your presence. Be notorious. Remain on people's minds. Flow so freely that they'll be scared of drowning in your thoughts. Don't be taken lightly. Be sure of yourself. Be irreplaceable. Move so fast that no one can see where you're going. Give them something to chase, but never let them catch up with you. Be more than what they bargained for. Make them hate you for being so fucking good. Burn so brightly that you catch the whole world on fire.
 
