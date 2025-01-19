@@ -25,5 +25,9 @@ export default function TypeWriter({ text, speed = 50 }: TypeWriterProps) {
         setCurrentIndex(0);
     }, [text]);
 
-    return <div>{displayedText}</div>;
+    return (
+        <div className="whitespace-pre-wrap">
+            {displayedText}
+        </div>
+    );
 } 
