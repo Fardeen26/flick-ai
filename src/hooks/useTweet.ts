@@ -3,7 +3,7 @@
 import { useContext } from 'react';
 import { TweetContext } from "@/context/TweetContext";
 
-export const useTweet = () => {
+export default function useTweet() {
     const context = useContext(TweetContext);
 
     if (!context) {
