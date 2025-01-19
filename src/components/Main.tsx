@@ -14,12 +14,14 @@ import { Textarea } from "./ui/textarea";
 import useTweet from "@/hooks/useTweet";
 import Result from "./Result";
 import useResult from "@/hooks/useResult";
+import { HiStop } from "react-icons/hi2";
 
 export default function Main() {
     const [improvePrompt, setImprovePrompt] = useState('');
+    const [isImprovingField, setIsImprovingField] = useState(false);
+    const [isGenerating, setIsGenerating] = useState(false);
     const moodRef = useRef('Casual');
     const actionRef = useRef('Formatting');
-    const [isImprovingField, setIsImprovingField] = useState(false);
     const textareaRef = useRef<HTMLTextAreaElement>(null);
     const { tweet, setTweet } = useTweet();
     const { result, setResult } = useResult();
@@ -33,9 +35,15 @@ export default function Main() {
     };
 
     const handleGenerate = async () => {
-        const response = await axios.post('/api/generate', { tweet, mood: moodRef.current, action: actionRef.current });
-        console.log(response.data.text);
-        setResult(response.data.text);
+        try {
+            setIsGenerating(true);
+            const response = await axios.post('/api/generate', { tweet, mood: moodRef.current, action: actionRef.current });
+            setResult(response.data.text);
+        } catch (error) {
+            console.error(error);
+        } finally {
+            setIsGenerating(false);
+        }
     }
 
     const handleRegenerate = async () => {
@@ -44,14 +52,20 @@ export default function Main() {
             return;
         };
         if (isImprovingField && !improvePrompt) {
-            console.log("improvePrompt", improvePrompt);
             setIsImprovingField(false);
             return;
         }
-        const response = await axios.post('/api/improve', { result, mood: moodRef.current, action: actionRef.current, improvePrompt, tweet });
-        setResult(response.data.text);
-        setImprovePrompt('');
-        setIsImprovingField(false);
+        setIsGenerating(true);
+        try {
+            const response = await axios.post('/api/improve', { result, mood: moodRef.current, action: actionRef.current, improvePrompt, tweet });
+            setResult(response.data.text);
+            setImprovePrompt('');
+            setIsImprovingField(false);
+        } catch (error) {
+            console.error(error);
+        } finally {
+            setIsGenerating(false);
+        }
     }
 
     const copyToClipboard = () => {
@@ -111,8 +125,8 @@ export default function Main() {
                         </div>
                     </div>
                     <div>
-                        <button className="bg-transparent rounded-lg before:bg-opacity-5 hover:bg-white/10 transition-all duration-300 backdrop-blur-lg border border-white/20 text-white p-2" onClick={handleGenerate}>
-                            <FaTurnUp className="text-xs" />
+                        <button className="bg-transparent rounded-lg before:bg-opacity-5 hover:bg-white/10 backdrop-blur-lg border border-white/20 text-white p-2" onClick={handleGenerate}>
+                            {isGenerating ? <HiStop className="text-xs animate-pulse" /> : <FaTurnUp className="text-xs" />}
                         </button>
                     </div>
                 </div>
