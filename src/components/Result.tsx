@@ -15,7 +15,7 @@ type ResultProps = {
 export default function Result({ improvePrompt, isImprovingField, setImprovePrompt, handleRegenerate, copyToClipboard }: ResultProps) {
     const { result } = useResult();
     return (
-        <div className={`flex flex-col gap-2 w-[60vw] mt-6 py-3 ${result ? 'block' : 'hidden'}`}>
+        <div className={`flex flex-col gap-2 w-[60vw] bg-transparent border-none shadow-none mt-6 py-3 ${result ? 'block' : 'hidden'}`}>
             <div className="flex justify-end gap-2 relative" >
                 <input
                     type="text"
