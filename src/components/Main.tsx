@@ -15,6 +15,7 @@ import useTweet from "@/hooks/useTweet";
 import Result from "./Result";
 import useResult from "@/hooks/useResult";
 import { HiStop } from "react-icons/hi2";
+import { toast } from "sonner";
 
 export default function Main() {
     const [improvePrompt, setImprovePrompt] = useState('');
@@ -71,11 +72,12 @@ export default function Main() {
     const copyToClipboard = () => {
         if (!result) return;
         navigator.clipboard.writeText(result);
+        toast.success('Text copied to clipboard')
     };
 
     return (
         <main>
-            <div className="w-[60vw] relative pt-6 pb-2 px-4 !bg-transparent rounded-xl bg-opacity-10 backdrop-blur-lg border flex flex-col items-center justify-center dark:shadow-none shadow-none z-50">
+            <div className="w-[60vw] relative pt-6 pb-2 px-4 rounded-xl border-white/20 bg-opacity-10 backdrop-blur-lg border flex flex-col items-center justify-center dark:shadow-none shadow-none z-50">
                 <Textarea
                     ref={textareaRef}
                     value={tweet}

@@ -21,7 +21,7 @@ export default function Result({ improvePrompt, isImprovingField, setImproveProm
                     type="text"
                     onChange={(e) => setImprovePrompt(e.target.value)}
                     value={improvePrompt}
-                    className={`dark:text-white text-xs w-0 py-0 transition-all duration-300 ${isImprovingField ? 'w-[35vw] px-2 border border-gray-400/50 dark:border-white/20' : 'w-0'} bg-white rounded-lg bg-opacity-10 backdrop-blur-lg dark:focus:outline-none dark:focus:border-white/20`}
+                    className={`dark:text-white bg-transparent text-xs w-0 py-0 transition-all duration-300 ${isImprovingField ? 'w-[35vw] px-2 border border-gray-400/50 dark:border-white/20' : 'w-0'} rounded-lg bg-opacity-10 backdrop-blur-lg dark:focus:outline-none dark:focus:border-white/20`}
                 />
 
                 <ShinyButton onClick={handleRegenerate} className="p-3">
