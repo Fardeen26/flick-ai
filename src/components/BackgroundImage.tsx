@@ -6,10 +6,10 @@ import { useEffect, useState } from "react";
 
 export default function BackgroundImage() {
     const { theme } = useTheme()
-    const [background, setBackground] = useState('/g17.png');
+    const [background, setBackground] = useState('/g23.png');
 
     useEffect(() => {
-        setBackground(theme == 'dark' ? '/g17.png' : '/g14.png')
+        setBackground(theme == 'dark' ? '/g23.png' : '/g22.png')
     }, [theme])
 
     return (

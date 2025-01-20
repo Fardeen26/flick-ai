@@ -29,7 +29,7 @@ export default function TypeWriter({ text, speed = 50 }: TypeWriterProps) {
     return (
         <div className="whitespace-pre-wrap">
             <ShineBorder
-                className="relative text-sm w-full py-4 overflow-hidden rounded-lg border bg-background dark:md:shadow-xl"
+                className="relative text-sm w-full py-4 bg-white bg-opacity-10 backdrop-blur-lg overflow-hidden rounded-lg border dark:md:shadow-xl"
                 color={["#A07CFE", "#FE8FB5", "#FFBE7B"]}
             >
                 {displayedText}

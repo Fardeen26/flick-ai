@@ -77,7 +77,7 @@ export default function Main() {
 
     return (
         <main>
-            <div className="w-[60vw] relative pt-6 pb-2 px-4 rounded-xl border-white/20 bg-opacity-10 backdrop-blur-lg border flex flex-col items-center justify-center dark:shadow-none shadow-none z-50">
+            <div className="w-[60vw] relative pt-6 pb-2 px-4 rounded-xl dark:border-white/20 border-black/40 bg-white bg-opacity-10 backdrop-blur-lg border flex flex-col items-center justify-center dark:shadow-none shadow-none z-50">
                 <Textarea
                     ref={textareaRef}
                     value={tweet}
