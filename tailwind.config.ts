@@ -59,6 +59,8 @@ export default {
 			animation: {
 				grid: 'grid 15s linear infinite',
 				'border-rotate': 'border-rotate 3s linear infinite',
+				shine: 'shine var(--duration) infinite linear',
+				'border-beam': 'border-beam calc(var(--duration)*1s) infinite linear'
 			},
 			keyframes: {
 				grid: {
@@ -70,9 +72,29 @@ export default {
 					}
 				},
 				'border-rotate': {
-					'0%, 100%': { backgroundPosition: '0% 50%' },
-					'50%': { backgroundPosition: '100% 50%' },
+					'0%, 100%': {
+						backgroundPosition: '0% 50%'
+					},
+					'50%': {
+						backgroundPosition: '100% 50%'
+					}
 				},
+				shine: {
+					'0%': {
+						'background-position': '0% 0%'
+					},
+					'50%': {
+						'background-position': '100% 100%'
+					},
+					to: {
+						'background-position': '0% 0%'
+					}
+				},
+				'border-beam': {
+					'100%': {
+						'offset-distance': '100%'
+					}
+				}
 			}
 		}
 	},

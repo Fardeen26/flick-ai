@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import ShineBorder from './ui/shine-border';
 
 interface TypeWriterProps {
     text: string;
@@ -27,7 +28,12 @@ export default function TypeWriter({ text, speed = 50 }: TypeWriterProps) {
 
     return (
         <div className="whitespace-pre-wrap">
-            {displayedText}
+            <ShineBorder
+                className="relative text-sm w-full py-4 overflow-hidden rounded-lg border bg-background dark:md:shadow-xl"
+                color={["#A07CFE", "#FE8FB5", "#FFBE7B"]}
+            >
+                {displayedText}
+            </ShineBorder>
         </div>
     );
 } 

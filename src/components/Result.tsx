@@ -21,18 +21,19 @@ export default function Result({ improvePrompt, isImprovingField, setImproveProm
                     type="text"
                     onChange={(e) => setImprovePrompt(e.target.value)}
                     value={improvePrompt}
-                    className={`text-white text-xs w-0 transition-all duration-300 ${isImprovingField ? 'w-[35vw] px-2 border border-white/20' : 'w-0'} bg-white rounded-lg bg-opacity-10 backdrop-blur-lg focus:outline-none focus:border-white/20`}
+                    className={`dark:text-white text-xs w-0 py-0 transition-all duration-300 ${isImprovingField ? 'w-[35vw] px-2 border border-gray-400/50 dark:border-white/20' : 'w-0'} bg-white rounded-lg bg-opacity-10 backdrop-blur-lg dark:focus:outline-none dark:focus:border-white/20`}
                 />
 
                 <ShinyButton onClick={handleRegenerate} className="p-3">
                     <FaWandMagicSparkles className="hover:scale-110" />
                 </ShinyButton>
-                <button onClick={copyToClipboard} className={`bg-transparent rounded-lg before:bg-opacity-5 backdrop-blur-lg border border-white/20 text-white p-2 ${result ? 'block' : 'hidden'} hover:bg-white/10 transition-all duration-300`}>
+
+                <button onClick={copyToClipboard} className={`bg-transparent rounded-lg before:bg-opacity-5 backdrop-blur-lg border border-gray-400/50 dark:border-white/20 dark:text-white p-2 ${result ? 'block' : 'hidden'} hover:bg-white/10 transition-all duration-300`}>
                     <IoMdCopy />
                 </button>
             </div>
 
-            <div className="text-white w-full mt-3">
+            <div className="w-full mt-2">
                 <TypeWriter text={result} speed={30} />
             </div>
         </div>
