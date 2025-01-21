@@ -29,11 +29,26 @@ export async function POST(req: Request) {
     The revised tweet should remain under, convey a humorous yet casual vibe, and retain the original message's core idea."
     `;
 
-    const model = genAI.getGenerativeModel({
-        model: process.env.AI_MODEL ?? ""
-    });
-    const result2 = await model.generateContent(prompt);
-    const response = result2.response;
-    const text = response.text();
-    return NextResponse.json({ text: text });
+    try {
+        const model = genAI.getGenerativeModel({
+            model: process.env.AI_MODEL ?? ""
+        });
+        const res = await model.generateContent(prompt);
+        const text = res.response.text();
+
+        return NextResponse.json(
+            { success: true, message: text },
+            {
+                status: 200,
+            }
+        );
+    } catch (error) {
+        return NextResponse.json(
+            { success: false, message: error instanceof Error ? error.message : 'An unknown error occurred' },
+            {
+                status: 500,
+            }
+        );
+    }
+
 }

@@ -36,12 +36,12 @@ export default function Main() {
     };
 
     const handleGenerate = async () => {
+        setIsGenerating(true);
         try {
-            setIsGenerating(true);
             const response = await axios.post('/api/generate', { tweet, mood: moodRef.current, action: actionRef.current });
-            setResult(response.data.text);
+            setResult(response.data.message);
         } catch (error) {
-            console.error(error);
+            toast.error(error instanceof Error ? error.message : 'Error refining tweet')
         } finally {
             setIsGenerating(false);
         }
@@ -59,11 +59,11 @@ export default function Main() {
         setIsGenerating(true);
         try {
             const response = await axios.post('/api/improve', { result, mood: moodRef.current, action: actionRef.current, improvePrompt, tweet });
-            setResult(response.data.text);
+            setResult(response.data.message);
             setImprovePrompt('');
             setIsImprovingField(false);
         } catch (error) {
-            console.error(error);
+            toast.error(error instanceof Error ? error.message : 'Error improving response')
         } finally {
             setIsGenerating(false);
         }
