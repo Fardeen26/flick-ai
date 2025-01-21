@@ -1,4 +1,3 @@
-import Image from "next/image";
 import Link from "next/link";
 import { FaSquareXTwitter } from "react-icons/fa6";
 import { FaGithub } from "react-icons/fa";
@@ -10,8 +9,8 @@ export default function Appbar() {
         <header className="w-full p-2 mt-4 rounded-lg px-12">
             <nav className="flex items-center justify-between">
                 <h1>
-                    <Link href="/">
-                        <Image src="/vercel.svg" alt="logo" width={15} height={15} />
+                    <Link href="/" className={`font-extrabold text-xl tracking-tight`}>
+                        Flick.AI
                     </Link>
                 </h1>
 
