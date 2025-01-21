@@ -12,8 +12,8 @@ const bricolage_grotesque_init = Bricolage_Grotesque({
 });
 
 export const metadata: Metadata = {
-  title: "Refiner",
-  description: "Refine your text with AI",
+  title: "flick.ai",
+  description: "Refine your tweet with AI",
 };
 
 export default function RootLayout({
