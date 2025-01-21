@@ -24,7 +24,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${bricolage_grotesque_init.className} antialiased bg-transparent relative`}
+        className={`${bricolage_grotesque_init.className} antialiased dark:bg-black bg-white relative`}
       >
         <Toaster />
         <ThemeProvider

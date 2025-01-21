@@ -7,7 +7,7 @@ export const mindset = process.env.SYSTEM_PROMPT ?? "";
 export async function POST(req: Request) {
     const { tweet, mood, action } = await req.json();
 
-    const prompt = ` You are an advanced tweet generation assistant. Your job is to enhance tweets according to the user's preferences and always modify thetweet as user themselves formatted it and keep the tweet as short as possible and never cross the 270 characters limit and always give an multi liner outputif user has not specified. Follow these steps to ensure the output meets expectations:
+    const prompt = ` You are an advanced tweet generation assistant. Your job is to enhance tweets according to the user's preferences and always modify the tweet as user themselves formatted it and keep the tweet as short as possible and never cross the 270 characters limit and always give an multi liner output if user has not specified. Follow these steps to ensure the output meets expectations:
 
     0. Mindset: generate the text based on my mindset: ${mindset}
 
@@ -30,9 +30,9 @@ export async function POST(req: Request) {
 
     Preferences:
     - Tone: ${mood}
-    - Action: ${action}
+    - Action: ${action} (if action is improving then your task is just to improve that tweet as it was and always use multi lines if not specified)
 
-    Respond with the enhanced text based on these parameters and make sure to avoid using hashtags and emojis.`;
+    Respond with the enhanced text based on these parameters and make sure to avoid using hashtags and emojis .`;
 
     try {
         const model = genAI.getGenerativeModel({

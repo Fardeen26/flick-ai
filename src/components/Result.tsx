@@ -15,20 +15,20 @@ type ResultProps = {
 export default function Result({ improvePrompt, isImprovingField, setImprovePrompt, handleRegenerate, copyToClipboard }: ResultProps) {
     const { result } = useResult();
     return (
-        <div className={`flex flex-col gap-2 w-[60vw] bg-transparent border-none shadow-none mt-6 py-3 ${result ? 'block' : 'hidden'}`}>
+        <div className={`flex flex-col gap-2 w-[60vw] max-sm:w-full bg-transparent border-none shadow-none mt-6 py-3 ${result ? 'block' : 'hidden'}`}>
             <div className="flex justify-end gap-2 relative" >
                 <input
                     type="text"
                     onChange={(e) => setImprovePrompt(e.target.value)}
                     value={improvePrompt}
-                    className={`dark:text-white bg-transparent text-xs w-0 py-0 transition-all duration-300 ${isImprovingField ? 'w-[35vw] px-2 border border-gray-400/50 dark:border-white/20' : 'w-0'} rounded-lg bg-opacity-10 backdrop-blur-lg dark:focus:outline-none dark:focus:border-white/20`}
+                    className={`dark:text-white bg-transparent text-xs w-0 py-0 transition-all duration-300 ${isImprovingField ? 'w-[35vw] max-sm:w-full px-2 border border-gray-400/50 dark:border-white/20' : 'w-0'} rounded-lg bg-opacity-10 backdrop-blur-lg dark:focus:outline-none dark:focus:border-white/20`}
                 />
 
-                <ShinyButton onClick={handleRegenerate} className="p-3">
+                <ShinyButton onClick={handleRegenerate} className="p-3 max-sm:p-2">
                     <FaWandMagicSparkles className="hover:scale-110" />
                 </ShinyButton>
 
-                <button onClick={copyToClipboard} className={`bg-transparent rounded-lg before:bg-opacity-5 backdrop-blur-lg border border-gray-400/50 dark:border-white/20 dark:text-white p-2 ${result ? 'block' : 'hidden'} hover:bg-white/10 transition-all duration-300`}>
+                <button onClick={copyToClipboard} className={`bg-transparent rounded-lg before:bg-opacity-5 backdrop-blur-lg border border-gray-400/50 dark:border-white/20 dark:text-white p-2 max-sm:p-1 max-sm:px-1.5 ${result ? 'block' : 'hidden'} hover:bg-white/10 transition-all duration-300`}>
                     <IoMdCopy />
                 </button>
             </div>

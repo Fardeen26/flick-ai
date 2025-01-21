@@ -76,8 +76,8 @@ export default function Main() {
     };
 
     return (
-        <main>
-            <div className="w-[60vw] relative pt-6 pb-2 px-4 rounded-xl dark:border-white/20 border-black/40 bg-white bg-opacity-10 backdrop-blur-lg border flex flex-col items-center justify-center dark:shadow-none shadow-none z-50">
+        <main className="max-sm:w-full max-sm:px-2">
+            <div className="w-[60vw] max-lg:w-[80vw] max-sm:w-full relative pt-6 pb-2 px-4 rounded-xl dark:border-white/20 border-black/40 bg-white bg-opacity-10 backdrop-blur-lg border flex flex-col items-center justify-center dark:shadow-none shadow-none z-50">
                 <Textarea
                     ref={textareaRef}
                     value={tweet}
@@ -86,7 +86,7 @@ export default function Main() {
                         adjustTextareaHeight();
                     }}
                     placeholder="Paste your tweet"
-                    className="h-fit dark:text-white shadow-none w-full bg-transparent focus:outline-none focus:border-none max-h-[300px]"
+                    className="h-fit dark:text-white shadow-none w-full bg-transparent focus:outline-none focus:border-none max-h-[300px] max-sm:text-xs"
                     rows={1}
                 />
 
@@ -96,7 +96,7 @@ export default function Main() {
                             <Select onValueChange={(value: string) => {
                                 moodRef.current = value;
                             }}>
-                                <SelectTrigger className="w-[95px] dark:hover:bg-white/10 transition-all duration-300 text-xs bg-transparent rounded-lg before:bg-opacity-90 backdrop-blur-lg border hover:bg-black/5 border-gray-400/50 dark:border-white/20 dark:text-white p-2">
+                                <SelectTrigger className="w-[95px] max-sm:w-[85px] max-sm:text-[10px] dark:hover:bg-white/10 transition-all duration-300 text-xs bg-transparent rounded-lg before:bg-opacity-90 backdrop-blur-lg border hover:bg-black/5 border-gray-400/50 dark:border-white/20 dark:text-white p-2">
                                     <SelectValue placeholder="Casual" />
                                 </SelectTrigger>
                                 <SelectContent>
@@ -114,7 +114,7 @@ export default function Main() {
                             <Select onValueChange={(value: string) => {
                                 actionRef.current = value;
                             }}>
-                                <SelectTrigger className="w-[100px] dark:hover:bg-white/10 hover:bg-black/5 transition-all duration-300 text-xs bg-transparent rounded-lg before:bg-opacity-5 backdrop-blur-lg border border-gray-400/50 dark:border-white/20 dark:text-white p-2">
+                                <SelectTrigger className="w-[100px] max-sm:w-[90px] max-sm:text-[10px] dark:hover:bg-white/10 hover:bg-black/5 transition-all duration-300 text-xs bg-transparent rounded-lg before:bg-opacity-5 backdrop-blur-lg border border-gray-400/50 dark:border-white/20 dark:text-white p-2">
                                     <SelectValue placeholder="Formatting" />
                                 </SelectTrigger>
                                 <SelectContent>
