@@ -28,7 +28,7 @@ export default function Footer() {
                     </li>
                 </ul>
             </div>
-            <div className={`${fontInter} text-xs text-gray-600`}>© 2025 Flick.AI from AYE</div>
+            <div className={`${fontInter} text-xs text-gray-600`}>© 2025 Flick.AI from Fardeen</div>
         </footer>
     )
 }

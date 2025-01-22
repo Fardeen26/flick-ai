@@ -6,28 +6,32 @@ const mindset = process.env.SYSTEM_PROMPT ?? '';
 
 export async function POST(req: Request) {
     const { tweet, result, mood, action, improvePrompt } = await req.json();
-    const prompt = `System Instruction:
-    "You are an AI assistant helping users refine tweets to better suit their needs. Always maintain clarity and align with the user's selected mood, action, and instructions and please avoid using hashtags and emojis and always give the multi liner output if user has not specified. Ensure the tone and style remain consistent with their preferences."
 
-    0. Mindset: generate the text based on my mindset: ${mindset}
-    1. Keep the length of the tweet as minimal as possible and the length of the tweet should be more than 270 characters.
-    User Prompt:
-    ${improvePrompt}
+    const prompt = `You are an AI assistant helping users refine tweets. Your task is to modify the tweet based on the user's follow-up instructions while maintaining clarity, tone, and alignment with their preferences. Follow these steps:
 
-    User Initial Tweet:
-    ${tweet}
+    1. Mindset: Reflect the user's this mindset in the refined tweet: ${mindset}
+    2. Length: Keep the tweet as short as possible, never exceeding 270 characters.
+    3. Tone: Match the user's selected mood.
+    4. Action: Perform the requested action (Formatting/Improving/Correcting).
+    5. Style: Use multi-line formatting if the user hasn’t specified otherwise.
+    6. Core Message: Ensure the refined tweet retains the original message's core idea.
 
-    Previously Generated Tweet:
-    ${result}
+    Input:
 
-    Mode of Modification: ${mood}.
-    Action: ${action}.
-
-    Instructions: Make the tweet witty and engaging while simplifying the language. Add a conversational tone and keep it concise for social media.
+    - User’s follow-up instructions: ${improvePrompt}
+    - Initial Tweet: ${tweet}
+    - Previously refined Tweet by you: ${result}
+    - Mood: ${mood}
+    - Action: ${action}
 
     Output Expectations:
-    The revised tweet should remain under, convey a humorous yet casual vibe, and retain the original message's core idea."
-    `;
+
+    - Keep the tweet short and if possible match with the initial tweet length and always use multi lines.
+    - Simplify the language and make it concise for twitter.
+    - Always Avoid hashtags and emojis.
+    - Ensure the tone and style remain consistent with the user's preferences.
+
+    Respond with the refined tweet based on these parameters.`
 
     try {
         const model = genAI.getGenerativeModel({
