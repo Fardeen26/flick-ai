@@ -77,7 +77,7 @@ export default function Main() {
 
     return (
         <main className="max-sm:w-full max-sm:px-2">
-            <div className="w-[60vw] max-lg:w-[80vw] max-sm:w-full relative pt-6 pb-2 px-4 rounded-xl dark:border-white/20 border-black/40 bg-white bg-opacity-10 backdrop-blur-lg border flex flex-col items-center justify-center dark:shadow-none shadow-none z-50">
+            <div className="w-[60vw] max-lg:w-[80vw] max-sm:w-full relative pt-6 pb-2 px-4 rounded-xl dark:border-white/20 border-black/40 bg-white bg-opacity-10 backdrop-blur-xl border flex flex-col items-center justify-center dark:shadow-none shadow-none z-50">
                 <Textarea
                     ref={textareaRef}
                     value={tweet}

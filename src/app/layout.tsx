@@ -1,10 +1,11 @@
 import type { Metadata } from "next";
 import Appbar from "@/components/Appbar";
 import { Bricolage_Grotesque } from "next/font/google";
-import { ThemeProvider } from "@/components/theme-provider";
-import "./globals.css";
 import BackgroundImage from "@/components/BackgroundImage";
 import { Toaster } from 'sonner'
+import Footer from "@/components/Footer";
+import Providers from "./Providers";
+import "./globals.css";
 
 const bricolage_grotesque_init = Bricolage_Grotesque({
   subsets: ["latin"],
@@ -24,21 +25,17 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${bricolage_grotesque_init.className} antialiased dark:bg-black bg-white relative`}
+        className={`${bricolage_grotesque_init.className} antialiased h-screen dark:bg-black bg-white relative`}
       >
-        <Toaster />
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="dark"
-          enableSystem
-          disableTransitionOnChange
-        >
+        <Providers>
+          <Toaster />
           <BackgroundImage />
           <div className="flex justify-center">
             <Appbar />
           </div>
           {children}
-        </ThemeProvider>
+          <Footer />
+        </Providers>
       </body>
     </html>
   );

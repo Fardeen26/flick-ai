@@ -1,8 +1,6 @@
 import Link from "next/link";
-import { FaSquareXTwitter } from "react-icons/fa6";
-import { FaGithub } from "react-icons/fa";
-import { GiWireframeGlobe } from "react-icons/gi";
 import ThemeToggleButton from "./ThemeToggleButton";
+
 
 export default function Appbar() {
     return (
@@ -14,22 +12,7 @@ export default function Appbar() {
                     </Link>
                 </h1>
 
-                <ul className="flex gap-4 items-center">
-                    <li>
-                        <Link href="https://x.com/fardeen14693425">
-                            <FaSquareXTwitter className="w-4 h-4 hover:scale-110 transition-all duration-300" />
-                        </Link>
-                    </li>
-                    <li>
-                        <Link href="https://fardeen.tech/">
-                            <GiWireframeGlobe className="w-4 h-4 hover:scale-110 transition-all duration-300" />
-                        </Link>
-                    </li>
-                    <li>
-                        <Link href="https://github.com/Fardeen26">
-                            <FaGithub className="w-4 h-4 hover:scale-110 transition-all duration-300" />
-                        </Link>
-                    </li>
+                <ul className="flex gap-4 items-end">
                     <li>
                         <ThemeToggleButton />
                     </li>
