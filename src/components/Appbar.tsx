@@ -1,6 +1,6 @@
 import Link from "next/link";
 import ThemeToggleButton from "./ThemeToggleButton";
-import UsageCount from "./UsageCount";
+import Profile from "./Profile";
 
 export default function Appbar() {
     return (
@@ -12,14 +12,10 @@ export default function Appbar() {
                     </Link>
                 </h1>
 
-                <ul className="flex gap-4 items-center">
-                    <li>
-                        <ThemeToggleButton />
-                    </li>
-                    <li>
-                        <UsageCount />
-                    </li>
-                </ul>
+                <div className="flex items-center gap-4">
+                    <ThemeToggleButton />
+                    <Profile />
+                </div>
             </nav>
         </header>
     )
