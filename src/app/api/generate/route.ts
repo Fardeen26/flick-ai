@@ -18,7 +18,7 @@ export async function POST(req: Request) {
     - Improving: Match the tweet with the given mindset of user, or expressive without altering its core meaning.
     - Correcting: Fix grammatical, spelling, or syntactical errors.
 
-    4.Output: Always use multi-line formatting if the user hasn’t specified otherwise.
+    4.Output: Always use multi-line formatting if the user hasn't specified otherwise.
 
     5. Regenerate: Provide variations of the refined tweet upon request, keeping the original instructions intact.
 
@@ -39,6 +39,18 @@ export async function POST(req: Request) {
             model: process.env.AI_MODEL ?? ""
         });
 
+        if (!tweet || typeof tweet !== 'string') {
+            throw new Error('Please provide a valid tweet to refine');
+        }
+
+        if (!mood || typeof mood !== 'string') {
+            throw new Error('Please specify a tone/mood for the refinement');
+        }
+
+        if (!action || typeof action !== 'string') {
+            throw new Error('Please specify an action (format, improve, or correct)');
+        }
+
         const result = await model.generateContent(prompt);
         const text = result.response.text();
 
@@ -50,7 +62,12 @@ export async function POST(req: Request) {
         );
     } catch (error) {
         return NextResponse.json(
-            { success: false, message: error instanceof Error ? error.message : 'An unknown error occurred' },
+            {
+                success: false,
+                message: error instanceof Error ?
+                    `Tweet refinement failed: ${error.message}` :
+                    'Our tweet refinement service is currently unavailable. Please try again later.'
+            },
             {
                 status: 500,
             }

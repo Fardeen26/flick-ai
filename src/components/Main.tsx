@@ -1,7 +1,7 @@
 "use client"
 
 import { useState, useRef, useEffect } from "react";
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 import { FaTurnUp } from "react-icons/fa6";
 import {
     Select,
@@ -19,6 +19,7 @@ import { toast } from "sonner";
 import { useSession } from "next-auth/react";
 import { useUsageTracker } from "@/hooks/useUsageTracker";
 import { LoginModal } from "@/app/(auth)/signin/page";
+import { ApiResponse } from "@/types/ApiResponse";
 
 
 export default function Main() {
@@ -50,11 +51,12 @@ export default function Main() {
 
         setIsGenerating(true);
         try {
-            const response = await axios.post('/api/generate', { tweet, mood: moodRef.current, action: actionRef.current });
+            const response = await axios.post<ApiResponse>('/api/generate', { tweet, mood: moodRef.current, action: actionRef.current });
             incrementUsage();
             setResult(response.data.message);
         } catch (error) {
-            toast.error(error instanceof Error ? error.message : 'Error refining tweet')
+            const axiosError = error as AxiosError<ApiResponse>;
+            toast.error(axiosError.response?.data.message ?? 'Failed to refine the tweet')
         } finally {
             setIsGenerating(false);
         }
@@ -71,12 +73,13 @@ export default function Main() {
         }
         setIsGenerating(true);
         try {
-            const response = await axios.post('/api/improve', { result, mood: moodRef.current, action: actionRef.current, improvePrompt, tweet });
+            const response = await axios.post<ApiResponse>('/api/improve', { result, mood: moodRef.current, action: actionRef.current, improvePrompt, tweet });
             setResult(response.data.message);
             setImprovePrompt('');
             setIsImprovingField(false);
         } catch (error) {
-            toast.error(error instanceof Error ? error.message : 'Error improving response')
+            const axiosError = error as AxiosError<ApiResponse>;
+            toast.error(axiosError.response?.data.message ?? 'Failed to refine the tweet')
         } finally {
             setIsGenerating(false);
         }
@@ -84,11 +87,11 @@ export default function Main() {
 
     const saveInteraction = async () => {
         try {
-            const response = await axios.post('/api/interaction/save', { tweet, mood: moodRef.current, action: actionRef.current, result })
-            console.log("into", response.data)
+            const response = await axios.post<ApiResponse>('/api/interaction/save', { tweet, mood: moodRef.current, action: actionRef.current, result })
             toast.success(response.data.message)
         } catch (error) {
-            toast.error(error instanceof Error ? error.message : 'Error adding interaction')
+            const axiosError = error as AxiosError<ApiResponse>;
+            toast.error(axiosError.response?.data.message ?? 'Failed to save interaction')
         }
     }
 

@@ -4,6 +4,7 @@ import useResult from "@/hooks/useResult";
 import { FaWandMagicSparkles } from "react-icons/fa6";
 import { ShinyButton } from '@/components/ui/shiny-button'
 import { FaHeart } from "react-icons/fa";
+import { ResultProps } from "@/types/ResultProps";
 import {
     Tooltip,
     TooltipContent,
@@ -11,15 +12,6 @@ import {
     TooltipTrigger,
 } from "@/components/ui/tooltip"
 
-
-type ResultProps = {
-    improvePrompt: string;
-    isImprovingField: boolean;
-    setImprovePrompt: (improvePrompt: string) => void;
-    handleRegenerate: () => void;
-    copyToClipboard: () => void;
-    saveInteraction: () => void
-}
 
 export default function Result({ improvePrompt, isImprovingField, setImprovePrompt, handleRegenerate, copyToClipboard, saveInteraction }: ResultProps) {
     const { result } = useResult();

@@ -9,7 +9,7 @@ export async function POST(req: Request) {
 
     if (!session) {
         return Response.json(
-            { success: false, message: 'Not authenticated' },
+            { success: false, message: 'Please sign in to save your interaction' },
             { status: 401 }
         );
     }
@@ -23,7 +23,7 @@ export async function POST(req: Request) {
 
         if (!user) {
             return Response.json(
-                { success: false, message: 'User not found' },
+                { success: false, message: 'Your account could not be found. Please try signing in again' },
                 { status: 404 }
             );
         }
@@ -39,13 +39,13 @@ export async function POST(req: Request) {
         });
 
         return Response.json(
-            { success: true, message: "Interaction added successfully" },
+            { success: true, message: "Your interaction has been saved successfully" },
             { status: 200 }
         )
     } catch (error) {
         return Response.json(
-            { success: false, message: error instanceof Error ? error.message : 'Error adding Interaction' },
-            { status: 501 }
+            { success: false, message: error instanceof Error ? `We encountered an issue while saving: ${error.message}` : 'An unexpected error occurred while saving your interaction. Please try again later.' },
+            { status: 500 }
         )
     }
 }

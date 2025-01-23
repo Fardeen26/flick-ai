@@ -13,12 +13,12 @@ export async function POST(req: Request) {
     2. Length: Keep the tweet as short as possible, never exceeding 270 characters.
     3. Tone: Match the user's selected mood.
     4. Action: Perform the requested action (Formatting/Improving/Correcting).
-    5. Style: Use multi-line formatting if the user hasn’t specified otherwise.
+    5. Style: Use multi-line formatting if the user hasn't specified otherwise.
     6. Core Message: Ensure the refined tweet retains the original message's core idea.
 
     Input:
 
-    - User’s follow-up instructions: ${improvePrompt}
+    - User's follow-up instructions: ${improvePrompt}
     - Initial Tweet: ${tweet}
     - Previously refined Tweet by you: ${result}
     - Mood: ${mood}
@@ -47,8 +47,22 @@ export async function POST(req: Request) {
             }
         );
     } catch (error) {
+        let errorMessage = 'Failed to process your tweet. Please try again.';
+
+        if (error instanceof Error) {
+            if (error.message.includes('API key')) {
+                errorMessage = 'Authentication failed. Please check your API configuration.';
+            } else if (error.message.includes('model')) {
+                errorMessage = 'The AI model is currently unavailable. Please try again later.';
+            } else if (error.message.includes('content')) {
+                errorMessage = 'Invalid input detected. Please check your tweet and try again.';
+            } else if (error.message.includes('quota')) {
+                errorMessage = 'Request limit reached. Please try again later.';
+            }
+        }
+
         return NextResponse.json(
-            { success: false, message: error instanceof Error ? error.message : 'An unknown error occurred' },
+            { success: false, message: errorMessage },
             {
                 status: 500,
             }
