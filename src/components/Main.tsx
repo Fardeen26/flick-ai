@@ -43,7 +43,6 @@ export default function Main() {
     };
 
     const handleGenerate = async () => {
-
         if (!session && isLimitReached) {
             setShowLoginModal(true);
             return;
@@ -80,6 +79,16 @@ export default function Main() {
             toast.error(error instanceof Error ? error.message : 'Error improving response')
         } finally {
             setIsGenerating(false);
+        }
+    }
+
+    const saveInteraction = async () => {
+        try {
+            const response = await axios.post('/api/interaction/save', { tweet, mood: moodRef.current, action: actionRef.current, result })
+            console.log("into", response.data)
+            toast.success(response.data.message)
+        } catch (error) {
+            toast.error(error instanceof Error ? error.message : 'Error adding interaction')
         }
     }
 
@@ -154,7 +163,7 @@ export default function Main() {
                     </div>
                 </div>
             </div>
-            <Result improvePrompt={improvePrompt} isImprovingField={isImprovingField} setImprovePrompt={setImprovePrompt} handleRegenerate={handleRegenerate} copyToClipboard={copyToClipboard} />
+            <Result improvePrompt={improvePrompt} isImprovingField={isImprovingField} setImprovePrompt={setImprovePrompt} handleRegenerate={handleRegenerate} copyToClipboard={copyToClipboard} saveInteraction={saveInteraction} />
         </main>
     )
 }

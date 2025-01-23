@@ -1,44 +1,6 @@
-import NextAuth from "next-auth"
-import GoogleProvider from "next-auth/providers/google";
-import { PrismaClient } from "@prisma/client";
-const prisma = new PrismaClient();
+import NextAuth from 'next-auth/next';
+import { authOptions } from './options';
 
-const handler = NextAuth({
-    providers: [
-        GoogleProvider({
-            clientId: process.env.GOOGLE_CLIENT_ID ?? "",
-            clientSecret: process.env.GOOGLE_CLIENT_SECRET ?? ""
-        })
-    ],
-    secret: process.env.NEXTAUTH_SECRET,
-    callbacks: {
-        async signIn({ user }) {
-            try {
-                const existingUser = await prisma.user.findUnique({
-                    where: { email: user.email! },
-                });
+const handler = NextAuth(authOptions);
 
-                if (!existingUser) {
-                    await prisma.user.create({
-                        data: {
-                            email: user.email!,
-                            name: user.name || null,
-                            profileImage: user.image || null,
-                        },
-                    });
-                }
-                return true;
-            } catch (error) {
-                console.error("Error during sign-in:", error);
-                return false;
-            } finally {
-                await prisma.$disconnect();
-            }
-        },
-    },
-    session: {
-        strategy: "jwt",
-    },
-})
-
-export { handler as GET, handler as POST }
+export { handler as GET, handler as POST };
