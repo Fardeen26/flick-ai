@@ -8,8 +8,20 @@ datasource db {
 }
 
 model User {
-  id           Int     @id @default(autoincrement())
-  email        String  @unique
+  id           Int           @id @default(autoincrement())
+  email        String        @unique
   name         String?
   profileImage String?
+  interactions Interaction[]
+}
+
+model Interaction {
+  id         Int      @id @default(autoincrement())
+  userPrompt String
+  aiResponse String
+  mood       String?
+  action     String?
+  createdAt  DateTime @default(now())
+  userId     Int
+  user       User     @relation(fields: [userId], references: [id])
 }
