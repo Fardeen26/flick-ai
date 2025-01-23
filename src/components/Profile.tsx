@@ -16,6 +16,7 @@ import {
 import { signIn, signOut, useSession } from "next-auth/react"
 import { CgMenuGridR } from "react-icons/cg";
 import UsageCount from "./UsageCount"
+import Link from "next/link";
 
 
 export default function Profile() {
@@ -36,7 +37,16 @@ export default function Profile() {
                 <DropdownMenuLabel><UsageCount /></DropdownMenuLabel>
                 <DropdownMenuSeparator />
                 {
-                    session?.user ? <DropdownMenuItem onClick={() => signOut()}>Logout</DropdownMenuItem> : <DropdownMenuItem onClick={() => signIn('google')}>SignIn</DropdownMenuItem>
+                    session?.user ? (
+                        <>
+                            <DropdownMenuItem onClick={() => signOut()}>Logout</DropdownMenuItem>
+                            <DropdownMenuItem>
+                                <Link href='/history'>
+                                    History
+                                </Link>
+                            </DropdownMenuItem>
+                        </>
+                    ) : <DropdownMenuItem onClick={() => signIn('google')}>SignIn</DropdownMenuItem>
                 }
             </DropdownMenuContent>
         </DropdownMenu>
