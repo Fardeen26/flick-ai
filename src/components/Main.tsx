@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import axios from "axios";
 import { FaTurnUp } from "react-icons/fa6";
 import {
@@ -16,16 +16,23 @@ import Result from "./Result";
 import useResult from "@/hooks/useResult";
 import { HiStop } from "react-icons/hi2";
 import { toast } from "sonner";
+import { useSession } from "next-auth/react";
+import { useUsageTracker } from "@/hooks/useUsageTracker";
+import { LoginModal } from "@/app/(auth)/signin/page";
+
 
 export default function Main() {
     const [improvePrompt, setImprovePrompt] = useState('');
     const [isImprovingField, setIsImprovingField] = useState(false);
     const [isGenerating, setIsGenerating] = useState(false);
+    const [showLoginModal, setShowLoginModal] = useState(false);
     const moodRef = useRef('Casual');
     const actionRef = useRef('Formatting');
     const textareaRef = useRef<HTMLTextAreaElement>(null);
     const { tweet, setTweet } = useTweet();
     const { result, setResult } = useResult();
+    const { incrementUsage, isLimitReached, resetUsage } = useUsageTracker();
+    const { data: session } = useSession();
 
     const adjustTextareaHeight = () => {
         const textarea = textareaRef.current;
@@ -36,9 +43,16 @@ export default function Main() {
     };
 
     const handleGenerate = async () => {
+
+        if (!session && isLimitReached) {
+            setShowLoginModal(true);
+            return;
+        }
+
         setIsGenerating(true);
         try {
             const response = await axios.post('/api/generate', { tweet, mood: moodRef.current, action: actionRef.current });
+            incrementUsage();
             setResult(response.data.message);
         } catch (error) {
             toast.error(error instanceof Error ? error.message : 'Error refining tweet')
@@ -75,8 +89,15 @@ export default function Main() {
         toast.success('Text copied to clipboard')
     };
 
+    useEffect(() => {
+        if (session) {
+            resetUsage();
+        }
+    }, [session, resetUsage]);
+
     return (
         <main className="max-sm:w-full max-sm:px-2">
+            {showLoginModal && <LoginModal onClose={() => setShowLoginModal(false)} showLoginModal={showLoginModal} />}
             <div className="w-[60vw] max-lg:w-[80vw] max-sm:w-full relative pt-6 pb-2 px-4 rounded-xl dark:border-white/20 border-black/40 bg-white bg-opacity-10 backdrop-blur-xl border flex flex-col items-center justify-center dark:shadow-none shadow-none z-50">
                 <Textarea
                     ref={textareaRef}
