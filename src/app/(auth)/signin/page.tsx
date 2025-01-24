@@ -7,8 +7,9 @@ import {
     DialogHeader,
     DialogTitle,
 } from "@/components/ui/dialog"
+import { LoginModelProps } from "@/types/LoginModelProps";
 
-export const LoginModal = ({ onClose, showLoginModal }: { onClose: () => void, showLoginModal: boolean }) => {
+export default function LoginModal({ onClose, showLoginModal }: LoginModelProps) {
     return (
         <Dialog open={showLoginModal} onOpenChange={(open) => {
             if (!open) {
