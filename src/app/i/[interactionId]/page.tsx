@@ -19,15 +19,15 @@ export default async function InteractionPage({ params }: InteractionPageProps) 
     })
 
     return (
-        <section className="w-full flex px-20 interactions-center mt-24 pb-12">
+        <section className="w-full flex px-20 max-sm:px-4 interactions-center mt-24 pb-12 max-sm:overflow-hidden">
             <div className="flex flex-col w-full space-y-5">
-                <div className="pl-40 flex justify-end">
-                    <div className="pl-6 pr-6 py-4 text-left bg-gray-400/10 rounded-xl">
+                <div className="pl-40 max-sm:pl-10 flex justify-end">
+                    <div className="pl-6 pr-6 max-sm:px-4 py-4 text-left bg-gray-400/10 rounded-xl">
                         <div className="space-x-3 mb-2">
                             <span className='text-xs bg-gray-300/10 px-2 py-1 rounded-md'>{interaction?.mood}</span>
                             <span className='text-xs bg-gray-300/10 px-2 py-1 rounded-md'>{interaction?.action}</span>
                         </div>
-                        <p>{interaction?.userPrompt}</p>
+                        <p className="max-sm:text-sm">{interaction?.userPrompt}</p>
                     </div>
                 </div>
                 <div className="flex justify-start gap-3">
@@ -38,7 +38,7 @@ export default async function InteractionPage({ params }: InteractionPageProps) 
                         </Avatar>
                     </span>
                     <div>
-                        <p className='leading-7'>&quot;{interaction?.aiResponse}&quot;</p>
+                        <p className='leading-7 max-sm:text-sm'>&quot;{interaction?.aiResponse}&quot;</p>
                         <div className="flex interactions-center mt-1 gap-3">
                             <span className='text-xs'>{interaction?.createdAt.toDateString()}</span>
                             <Utility aiResponse={interaction?.aiResponse} id={interaction?.id} />

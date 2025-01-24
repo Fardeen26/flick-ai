@@ -26,7 +26,7 @@ export default function Profile() {
             <DropdownMenuTrigger className="focus:border-none focus:outline-none">
                 {
                     session?.user ? (
-                        <Avatar>
+                        <Avatar className="max-sm:w-6 max-sm:h-6">
                             <AvatarImage src="/p8.png" alt="profile" />
                             <AvatarFallback>AI</AvatarFallback>
                         </Avatar>

@@ -272,7 +272,7 @@ const SidebarTrigger = React.forwardRef<
       data-sidebar="trigger"
       variant="ghost"
       size="icon"
-      className={cn(`${status === "unauthenticated" || status === "loading" ? 'hidden' : 'block'} h-7 w-7 ml-1 bg-transparent hover:bg-transparent`, className)}
+      className={cn(`${status === "unauthenticated" || status === "loading" ? 'hidden' : 'block'} h-7 w-7 ml-1 bg-transparent hover:bg-transparent max-sm:absolute max-sm:z-50`, className)}
       onClick={(event) => {
         onClick?.(event)
         toggleSidebar()
