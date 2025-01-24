@@ -18,8 +18,8 @@ import { HiStop } from "react-icons/hi2";
 import { toast } from "sonner";
 import { useSession } from "next-auth/react";
 import { useUsageTracker } from "@/hooks/useUsageTracker";
-import { LoginModal } from "@/app/(auth)/signin/page";
 import { ApiResponse } from "@/types/ApiResponse";
+import LoginModal from "@/app/(auth)/signin/page";
 
 
 export default function Main() {
