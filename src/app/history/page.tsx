@@ -4,12 +4,13 @@ import { prisma } from '@/lib/prisma'
 import { HistoryType } from '@/types/HistoryType'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import Utility from './components/Utility'
+import { redirect } from 'next/navigation'
 
 
 export default async function History() {
     const session = await getServerSession(authOptions)
 
-    if (!session?.user) return <div className="">You are unauthorized</div>
+    if (!session?.user) return redirect('/')
 
     const user = await prisma.user.findFirst({
         where: {

@@ -49,6 +49,38 @@ export async function AppSidebar() {
         }
     });
 
+    const now = new Date();
+    const todayStart = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+    const yesterdayStart = new Date(todayStart);
+    yesterdayStart.setDate(yesterdayStart.getDate() - 1);
+    const sevenDaysAgo = new Date(todayStart);
+    sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 7);
+    const thirtyDaysAgo = new Date(todayStart);
+    thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
+
+    const groupedInteractions = interactions.reduce((acc, interaction) => {
+        const interactionDate = new Date(interaction.createdAt);
+
+        if (interactionDate >= todayStart) {
+            acc['Today'] = acc['Today'] || [];
+            acc['Today'].push(interaction);
+        } else if (interactionDate >= yesterdayStart) {
+            acc['Yesterday'] = acc['Yesterday'] || [];
+            acc['Yesterday'].push(interaction);
+        } else if (interactionDate >= sevenDaysAgo) {
+            acc['Previous 7 Days'] = acc['Previous 7 Days'] || [];
+            acc['Previous 7 Days'].push(interaction);
+        } else if (interactionDate >= thirtyDaysAgo) {
+            acc['Previous 30 Days'] = acc['Previous 30 Days'] || [];
+            acc['Previous 30 Days'].push(interaction);
+        } else {
+            acc['2024'] = acc['2024'] || [];
+            acc['2024'].push(interaction);
+        }
+
+        return acc;
+    }, {} as Record<string, HistoryType[]>);
+
     return (
         <Sidebar>
             <SidebarContent>
@@ -66,25 +98,30 @@ export async function AppSidebar() {
                     </SidebarGroupLabel>
                     <SidebarGroupContent className="mt-10">
                         <SidebarMenu className="">
-                            {interactions.length < 1 && <span className="text-center">No interactions yet!</span>}
-                            {interactions.length > 0 && interactions.map((item) => (
-                                <SidebarMenuItem key={item.id} className="hover:bg-gray-100/10 px-2 py-2.5 rounded-xl">
-                                    <SidebarMenuButton asChild>
-                                        <TooltipProvider>
-                                            <Tooltip>
-                                                <TooltipTrigger className="text-start line-clamp-1">
-                                                    <Link href={`/i/${item.id}`}>
-                                                        <span className={`${fontInter}`}>{item.userPrompt}</span>
-                                                    </Link>
-                                                </TooltipTrigger>
-                                                <TooltipContent>
-                                                    <p>{item.userPrompt}</p>
-                                                </TooltipContent>
-                                            </Tooltip>
-                                        </TooltipProvider>
-                                    </SidebarMenuButton>
-                                </SidebarMenuItem>
+                            {Object.entries(groupedInteractions).map(([period, items]) => (
+                                <div key={period}>
+                                    <div className="text-sm text-gray-400 px-2 py-1">{period}</div>
+                                    {items.map((item) => (
+                                        <SidebarMenuItem key={item.id} className="hover:bg-gray-100/10 px-2 py-2.5 rounded-xl">
+                                            <SidebarMenuButton asChild>
+                                                <TooltipProvider>
+                                                    <Tooltip>
+                                                        <TooltipTrigger className="text-start line-clamp-1">
+                                                            <Link href={`/i/${item.id}`}>
+                                                                <span className={`${fontInter}`}>{item.userPrompt}</span>
+                                                            </Link>
+                                                        </TooltipTrigger>
+                                                        <TooltipContent>
+                                                            <p>{item.userPrompt}</p>
+                                                        </TooltipContent>
+                                                    </Tooltip>
+                                                </TooltipProvider>
+                                            </SidebarMenuButton>
+                                        </SidebarMenuItem>
+                                    ))}
+                                </div>
                             ))}
+                            {interactions.length < 1 && <span className="text-center">No interactions yet!</span>}
                         </SidebarMenu>
                     </SidebarGroupContent>
                 </SidebarGroup>

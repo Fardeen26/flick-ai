@@ -22,7 +22,7 @@ export const LoginModal = ({ onClose, showLoginModal }: { onClose: () => void, s
                         You&apos;ve reached the free tier usage limit. Sign in to unlock full access to our AI-powered features and continue your journey.
                     </DialogDescription>
                 </DialogHeader>
-                <Button onClick={() => signIn("google")}>Login with Google</Button>
+                <Button className="dark:bg-white bg-black text-white hover:bg-black/90 dark:text-black dark:hover:bg-white/95" onClick={() => signIn("google")}>Login with Google</Button>
             </DialogContent>
         </Dialog>
     );
