@@ -119,7 +119,7 @@ export default function Main() {
                         adjustTextareaHeight();
                     }}
                     placeholder="Paste your tweet"
-                    className="h-fit dark:text-white shadow-none w-full bg-transparent focus:outline-none focus:border-none max-h-[300px] max-sm:max- max-sm:text-xs"
+                    className="h-fit dark:text-white shadow-none w-full bg-transparent focus:outline-none focus:border-none max-h-[300px] max-sm:text-xs"
                     rows={1}
                 />
 

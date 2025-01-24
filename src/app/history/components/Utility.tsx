@@ -1,12 +1,13 @@
 "use client"
 
 import { ApiResponse } from "@/types/ApiResponse";
+import { UtilityProps } from "@/types/UtilityProps";
 import axios, { AxiosError } from "axios";
 import { IoMdCopy } from "react-icons/io";
 import { RiDeleteBin3Line } from "react-icons/ri";
 import { toast } from "sonner";
 
-export default function Utility({ aiResponse, id }: { aiResponse: string | undefined, id: number | undefined }) {
+export default function Utility({ aiResponse, id }: UtilityProps) {
 
     const copyToClipboard = () => {
         if (!aiResponse) return;
@@ -26,8 +27,8 @@ export default function Utility({ aiResponse, id }: { aiResponse: string | undef
 
     return (
         <>
-            <button onClick={copyToClipboard}><IoMdCopy className='w-3 h-3' /></button>
-            <button onClick={handleDelete}><RiDeleteBin3Line className='w-3 h-3' /></button>
+            <button onClick={copyToClipboard} className="hover:scale-110 transition-all"><IoMdCopy className='w-3 h-3' /></button>
+            <button onClick={handleDelete} className="hover:scale-110 transition-all"><RiDeleteBin3Line className='w-3 h-3' /></button>
         </>
     )
 }

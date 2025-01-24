@@ -5,12 +5,13 @@ import { HistoryType } from '@/types/HistoryType'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import Utility from './components/Utility'
 import Link from 'next/link'
+import { redirect } from 'next/navigation'
 
 
 export default async function History() {
     const session = await getServerSession(authOptions)
 
-    if (!session?.user) return <div className="">You are unauthorized</div>
+    if (!session?.user) return redirect('/')
 
     const user = await prisma.user.findFirst({
         where: {
@@ -18,7 +19,7 @@ export default async function History() {
         }
     })
 
-    if (!user) return <div className="">User not found</div>
+    if (!user) return <div>User not found</div>
 
     const interactions: HistoryType[] = await prisma.interaction.findMany({
         where: {

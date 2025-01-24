@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-export const MAX_FREE_USES = 0;
+export const MAX_FREE_USES = 2;
 
 export const useUsageTracker = () => {
     const [usageCount, setUsageCount] = useState(0);
