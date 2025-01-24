@@ -93,7 +93,7 @@ export async function AppSidebar() {
                                     <AvatarFallback>AI</AvatarFallback>
                                 </Avatar>
                             </span>
-                            <Link href='/' className="text-lg text-white">Flick.AI</Link>
+                            <Link href='/' className="text-lg text-white max-sm:text-black">Flick.AI</Link>
                         </div>
                     </SidebarGroupLabel>
                     <SidebarGroupContent className="mt-10">

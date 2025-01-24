@@ -7,8 +7,8 @@ import useResult from "@/hooks/useResult";
 export default function Footer() {
     const { result } = useResult()
     return (
-        <footer className={`absolute bottom-8 max-sm:bottom-5 w-full flex flex-col gap-2 items-center transition-all duration-300 ${result ? 'hidden' : ''}`}>
-            <div className="">
+        <footer className={`mb-4 mt-8 w-full flex flex-col gap-2 items-center transition-all duration-300 ${result ? 'hidden' : ''}`}>
+            <div>
                 <ul className="flex gap-8 items-center dark:text-gray-400 text-sm max-sm:text-xs">
                     <li>
                         <Link href="https://x.com/fardeen14693425">
