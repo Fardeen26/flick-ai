@@ -6,7 +6,7 @@ import { IoMdCopy } from "react-icons/io";
 import { RiDeleteBin3Line } from "react-icons/ri";
 import { toast } from "sonner";
 
-export default function Utility({ aiResponse, id }: { aiResponse: string, id: number }) {
+export default function Utility({ aiResponse, id }: { aiResponse: string | undefined, id: number | undefined }) {
 
     const copyToClipboard = () => {
         if (!aiResponse) return;
