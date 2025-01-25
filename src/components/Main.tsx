@@ -19,7 +19,7 @@ import { toast } from "sonner";
 import { useSession } from "next-auth/react";
 import { useUsageTracker } from "@/hooks/useUsageTracker";
 import { ApiResponse } from "@/types/ApiResponse";
-import LoginModal from "@/app/(auth)/signin/page";
+import LoginModal from "./LoginModel";
 
 
 export default function Main() {
