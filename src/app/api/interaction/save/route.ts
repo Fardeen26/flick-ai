@@ -27,6 +27,21 @@ export async function POST(req: Request) {
             );
         }
 
+        const interaction = await prisma.interaction.findFirst({
+            where: {
+                userPrompt: tweet,
+                mood,
+                action
+            }
+        })
+
+        if (interaction) {
+            return Response.json(
+                { success: false, message: 'This interaction has already been saved' },
+                { status: 409 }
+            );
+        }
+
         await prisma.interaction.create({
             data: {
                 userPrompt: tweet,
