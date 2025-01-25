@@ -40,11 +40,11 @@ export default function Profile() {
                     session?.user ? (
                         <>
                             <DropdownMenuItem onClick={() => signOut()}>Logout</DropdownMenuItem>
-                            <DropdownMenuItem>
-                                <Link href='/history'>
+                            <Link href='/history'>
+                                <DropdownMenuItem>
                                     History
-                                </Link>
-                            </DropdownMenuItem>
+                                </DropdownMenuItem>
+                            </Link>
                         </>
                     ) : <DropdownMenuItem onClick={() => signIn('google')}>SignIn</DropdownMenuItem>
                 }
