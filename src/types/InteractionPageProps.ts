@@ -1,5 +1,5 @@
 export interface InteractionPageProps {
-    params: {
+    params: Promise<{
         interactionId: string
-    }
+    }>
 }
