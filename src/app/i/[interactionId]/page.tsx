@@ -8,7 +8,7 @@ import { getServerSession } from "next-auth";
 import { redirect } from 'next/navigation'
 
 export default async function InteractionPage({ params }: InteractionPageProps) {
-    const interactionId = await params.interactionId
+    const { interactionId } = await params;
     const session = await getServerSession(authOptions)
 
     if (!session?.user) return redirect('/')
