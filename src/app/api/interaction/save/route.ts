@@ -38,7 +38,7 @@ export async function POST(req: Request) {
         });
 
         return Response.json(
-            { success: true, message: "Your interaction has been saved successfully" },
+            { success: true, message: "Your interaction has been saved" },
             { status: 200 }
         )
     } catch (error) {

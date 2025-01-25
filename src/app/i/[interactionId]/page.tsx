@@ -15,7 +15,7 @@ export default async function InteractionPage({ params }: InteractionPageProps) 
 
     const interaction: HistoryType | null = await prisma.interaction.findUnique({
         where: {
-            id: Number(interactionId)
+            id: interactionId
         }
     })
 

@@ -1,4 +1,4 @@
 export interface UtilityProps {
     aiResponse: string,
-    id: number
+    id: string
 }

@@ -16,7 +16,7 @@ model User {
 }
 
 model Interaction {
-  id         Int      @id @default(autoincrement())
+  id         String   @id @default(uuid())
   userPrompt String
   aiResponse String
   mood       String?

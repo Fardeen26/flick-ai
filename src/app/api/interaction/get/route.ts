@@ -39,8 +39,6 @@ export async function GET() {
             }
         });
 
-        console.log(interactions)
-
         return Response.json(interactions, { status: 200 });
     } catch (error) {
         console.error('Error fetching interactions:', error);

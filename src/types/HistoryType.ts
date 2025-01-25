@@ -1,5 +1,5 @@
 export interface HistoryType {
-    id: number,
+    id: string,
     userPrompt: string,
     aiResponse: string,
     mood: string | null,
