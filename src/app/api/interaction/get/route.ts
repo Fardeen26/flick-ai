@@ -5,24 +5,23 @@ import { authOptions } from "../../auth/[...nextauth]/options";
 export async function GET() {
     const session = await getServerSession(authOptions)
 
-    if (!session) {
+    if (!session?.user) {
         return Response.json(
-            { success: false, message: 'Please sign in to see your interactions' },
+            { success: false, message: 'Authentication required. Please sign in to access this resource.' },
             { status: 401 }
         );
     }
 
     try {
-
         const user = await prisma.user.findFirst({
             where: {
-                email: session.user?.email ?? ""
+                email: session.user.email ?? ""
             }
         })
 
         if (!user) {
             return Response.json(
-                { success: false, message: 'Your account could not be found. Please try signing in again' },
+                { success: false, message: 'User account not found. Please verify your account status.' },
                 { status: 404 }
             );
         }
@@ -39,11 +38,23 @@ export async function GET() {
             }
         });
 
-        return Response.json(interactions, { status: 200 });
-    } catch (error) {
-        console.error('Error fetching interactions:', error);
+        if (!interactions) {
+            return Response.json(
+                { success: true, message: 'No interactions found.' },
+                { status: 200 }
+            );
+        }
+
         return Response.json(
-            { message: 'Failed to fetch interactions' },
+            { success: true, message: interactions },
+            { status: 200 }
+        );
+    } catch (error) {
+        return Response.json(
+            {
+                success: false,
+                message: error instanceof Error ? `Error fetching interactions ${error.message}` : 'An unexpected error occurred while fetching your interactions.'
+            },
             { status: 500 }
         );
     }

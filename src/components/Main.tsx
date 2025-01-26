@@ -20,6 +20,7 @@ import { useSession } from "next-auth/react";
 import { useUsageTracker } from "@/hooks/useUsageTracker";
 import { ApiResponse } from "@/types/ApiResponse";
 import LoginModal from "./LoginModel";
+import { useRouter } from "next/navigation";
 
 
 export default function Main() {
@@ -34,6 +35,7 @@ export default function Main() {
     const { result, setResult } = useResult();
     const { incrementUsage, isLimitReached, resetUsage } = useUsageTracker();
     const { data: session } = useSession();
+    const router = useRouter()
 
     const adjustTextareaHeight = () => {
         const textarea = textareaRef.current;
@@ -89,6 +91,7 @@ export default function Main() {
         try {
             const response = await axios.post<ApiResponse>('/api/interaction/save', { tweet, mood: moodRef.current, action: actionRef.current, result })
             toast.success(response.data.message)
+            router.refresh()
         } catch (error) {
             const axiosError = error as AxiosError<ApiResponse>;
             toast.error(axiosError.response?.data.message ?? 'Failed to save interaction')

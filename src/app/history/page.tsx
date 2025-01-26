@@ -34,7 +34,7 @@ export default async function History() {
     });
 
     return (
-        <section className="flex flex-col gap-5 items-center px-52 max-sm:px-4 mt-12 pb-12 max-sm:overflow-hidden">
+        <section className="flex flex-col gap-5 items-center px-52 max-sm:px-4 mt-24 pb-12 max-sm:overflow-hidden">
             {
                 interactions.length < 1 && <div className='flex flex-col gap-2 justify-center w-[50vw] max-sm:w-[100vw] h-full items-center'>
                     <span className='text-lg'>No Interactions found!</span>
