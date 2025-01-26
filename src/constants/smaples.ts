@@ -1,5 +1,5 @@
 export const samples = [
-    "I'm a software engineer and I'm looking for a job",
+    "Coding all night again. Need coffee.",
     "I think feb I gotta take some health time off",
     "I love reading about human psychology"
 ]

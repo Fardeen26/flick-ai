@@ -93,7 +93,7 @@ export async function AppSidebar() {
                                     <AvatarFallback>AI</AvatarFallback>
                                 </Avatar>
                             </span>
-                            <Link href='/' className="text-lg text-white max-sm:text-black">Flick.AI</Link>
+                            <Link href='/' className="text-lg text-white max-sm:text-black max-sm:dark:text-white">Flick.AI</Link>
                         </div>
                     </SidebarGroupLabel>
                     <SidebarGroupContent className="mt-10">
@@ -102,22 +102,22 @@ export async function AppSidebar() {
                                 <div key={period}>
                                     <div className="text-sm text-gray-400 px-2 py-1">{period}</div>
                                     {items.map((item) => (
-                                        <SidebarMenuItem key={item.id} className="hover:bg-gray-100/10 px-2 py-2.5 rounded-xl">
-                                            <SidebarMenuButton asChild>
-                                                <TooltipProvider>
-                                                    <Tooltip>
-                                                        <TooltipTrigger className="text-start line-clamp-1">
-                                                            <Link href={`/i/${item.id}`}>
+                                        <Link href={`/i/${item.id}`} key={item.id}>
+                                            <SidebarMenuItem className="hover:bg-gray-100/10 px-2 py-2.5 rounded-xl">
+                                                <SidebarMenuButton asChild>
+                                                    <TooltipProvider>
+                                                        <Tooltip>
+                                                            <TooltipTrigger className="text-start line-clamp-1">
                                                                 <span className={`${fontInter}`}>{item.userPrompt}</span>
-                                                            </Link>
-                                                        </TooltipTrigger>
-                                                        <TooltipContent>
-                                                            <p>{item.userPrompt}</p>
-                                                        </TooltipContent>
-                                                    </Tooltip>
-                                                </TooltipProvider>
-                                            </SidebarMenuButton>
-                                        </SidebarMenuItem>
+                                                            </TooltipTrigger>
+                                                            <TooltipContent>
+                                                                <p>{item.userPrompt}</p>
+                                                            </TooltipContent>
+                                                        </Tooltip>
+                                                    </TooltipProvider>
+                                                </SidebarMenuButton>
+                                            </SidebarMenuItem>
+                                        </Link>
                                     ))}
                                 </div>
                             ))}

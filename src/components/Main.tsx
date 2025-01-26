@@ -135,7 +135,7 @@ export default function Main() {
                                 <SelectTrigger className="w-[95px] max-sm:w-[85px] max-sm:text-[10px] bg-gray-200/30 dark:bg-black/5 dark:hover:bg-white/5 transition-all duration-300 text-xs rounded-lg before:bg-opacity-90 backdrop-blur-lg border hover:bg-black/5 border-gray-400/50 dark:border-white/20 dark:text-white p-2">
                                     <SelectValue placeholder="Casual" />
                                 </SelectTrigger>
-                                <SelectContent>
+                                <SelectContent className="bg-gray-400 dark:text-white bg-opacity-20 backdrop-blur-lg border dark:border-white/10">
                                     <SelectItem value="light">Funny</SelectItem>
                                     <SelectItem value="Serious">Serious</SelectItem>
                                     <SelectItem value="Casual">Casual</SelectItem>
@@ -153,7 +153,7 @@ export default function Main() {
                                 <SelectTrigger className="w-[100px] max-sm:w-[90px] max-sm:text-[10px] bg-gray-200/30 dark:bg-black/5 dark:hover:bg-white/5 hover:bg-black/5 transition-all duration-300 text-xs rounded-lg before:bg-opacity-5 backdrop-blur-lg border border-gray-400/50 dark:border-white/20 dark:text-white p-2">
                                     <SelectValue placeholder="Formatting" />
                                 </SelectTrigger>
-                                <SelectContent>
+                                <SelectContent className="bg-gray-400 dark:text-white bg-opacity-20 backdrop-blur-lg border dark:border-white/10">
                                     <SelectItem value="Formatting">Formatting</SelectItem>
                                     <SelectItem value="Improving">Improving</SelectItem>
                                     <SelectItem value="Correcting">Correcting</SelectItem>
