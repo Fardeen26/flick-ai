@@ -5,6 +5,7 @@ import { Toaster } from 'sonner'
 import Providers from "./Providers";
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar"
 import { AppSidebar } from "@/components/app-sidebar"
+import { Analytics } from "@vercel/analytics/react"
 import "./globals.css";
 
 const bricolage_grotesque_init = Bricolage_Grotesque({
@@ -34,6 +35,7 @@ export default function RootLayout({
             <BackgroundImage />
             <SidebarTrigger />
             {children}
+            <Analytics />
           </SidebarProvider>
         </Providers>
       </body>
