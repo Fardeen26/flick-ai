@@ -75,7 +75,7 @@ export default function Main() {
         }
         setIsGenerating(true);
         try {
-            const response = await axios.post<ApiResponse>('/api/improve', { result, mood: moodRef.current, action: actionRef.current, improvePrompt, tweet });
+            const response = await axios.post<ApiResponse>('/api/improve', { tweet, result, improvePrompt });
             setResult(response.data.message);
             setImprovePrompt('');
             setIsImprovingField(false);

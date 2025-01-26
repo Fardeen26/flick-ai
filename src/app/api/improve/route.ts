@@ -2,36 +2,51 @@ import { GoogleGenerativeAI } from '@google/generative-ai';
 import { NextResponse } from 'next/server';
 
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY as string);
-const mindset = process.env.SYSTEM_PROMPT ?? '';
 
 export async function POST(req: Request) {
-    const { tweet, result, mood, action, improvePrompt } = await req.json();
+    const { tweet, result, improvePrompt } = await req.json();
 
-    const prompt = `You are an AI assistant helping users refine tweets. Your task is to modify the tweet based on the user's follow-up instructions while maintaining clarity, tone, and alignment with their preferences. Follow these steps:
+    const prompt = `You are a tweet EDITOR executing specific user-requested changes. Follow these rules:
 
-    1. Mindset: Reflect the user's this mindset in the refined tweet: ${mindset}
-    2. Length: Keep the tweet as short as possible, never exceeding 270 characters.
-    3. Tone: Match the user's selected mood.
-    4. Action: Perform the requested action (Formatting/Improving/Correcting).
-    5. Style: Use multi-line formatting if the user hasn't specified otherwise.
-    6. Core Message: Ensure the refined tweet retains the original message's core idea.
+    [CRITICAL RULES]
+    1. MAKE ONLY REQUESTED CHANGES: Never modify unmentioned aspects
+    2. PRESERVE EXISTING STRUCTURE: Keep intact what user hasn't specified to change
+    3. STRICT INSTRUCTION ADHERENCE: Implement ${improvePrompt} exactly
+    4. NO NEW CONTENT: Never add emojis, hashtags, or unsolicited ideas
+    5. LENGTH CAP: Absolute maximum 270 characters
 
-    Input:
+    [CONTEXT]
+    Original: "${tweet}"
+    Previous Version: "${result}"
+    User's Exact Request: "${improvePrompt}"
 
-    - User's follow-up instructions: ${improvePrompt}
-    - Initial Tweet: ${tweet}
-    - Previously refined Tweet by you: ${result}
-    - Mood: ${mood}
-    - Action: ${action}
+    [REQUIRED PROCESS]
+    1. Compare previous version and user request
+    2. Identify SPECIFIC elements to change/keep
+    3. Apply ONLY requested modifications
+    4. Preserve unrelated aspects from previous version
+    5. Validate against all rules before output
 
-    Output Expectations:
+    [BAD EXAMPLE]
+    User Request: "Make more technical"
+    Bad Change: Added "Leverage blockchain AI synergies" (new concept)
+    Good Change: Changed "coding" to "systems programming"
 
-    - Keep the tweet short and if possible match with the initial tweet length and always use multi lines.
-    - Simplify the language and make it concise for twitter.
-    - Always Avoid hashtags and emojis.
-    - Ensure the tone and style remain consistent with the user's preferences.
+    [OUTPUT REQUIREMENTS]
+    - Maintain previous version's line breaks/formatting
+    - Keep unchanged portions verbatim where possible
+    - Make minimal alterations to fulfill request
+    - Use only vocabulary from existing versions unless instructed
 
-    Respond with the refined tweet based on these parameters.`
+    [VALIDATION CHECKLIST]
+    Before responding, verify:
+    ☑ Changes match EXACTLY what user requested
+    ☑ Unrelated content remains identical
+    ☑ No new concepts/terms added
+    ☑ Length under 270 chars
+    ☑ No emojis/hashtags
+
+    Refined version (ONLY OUTPUT THIS):`
 
     try {
         const model = genAI.getGenerativeModel({
