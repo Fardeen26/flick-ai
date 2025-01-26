@@ -132,7 +132,7 @@ export default function Main() {
                             <Select onValueChange={(value: string) => {
                                 moodRef.current = value;
                             }}>
-                                <SelectTrigger className="w-[95px] max-sm:w-[85px] max-sm:text-[10px] bg-gray-200/30 dark:bg-black/5 dark:hover:bg-white/5 transition-all duration-300 text-xs rounded-lg before:bg-opacity-90 backdrop-blur-lg border hover:bg-black/5 border-gray-400/50 dark:border-white/20 dark:text-white p-2">
+                                <SelectTrigger className="w-[97px] max-sm:w-[86px] max-sm:text-[10px] bg-[rgba(229,231,235,0.3)] dark:bg-[rgba(0,0,0,0.05)] dark:hover:bg-[rgba(255,255,255,0.05)] transition-all duration-300 text-xs rounded-lg backdrop-blur-lg -webkit-backdrop-blur-lg border border-gray-400/50 dark:border-white/20 dark:text-white p-2 !text-center">
                                     <SelectValue placeholder="Casual" />
                                 </SelectTrigger>
                                 <SelectContent className="bg-gray-400 dark:text-white bg-opacity-20 backdrop-blur-lg border dark:border-white/10">
@@ -150,7 +150,7 @@ export default function Main() {
                             <Select onValueChange={(value: string) => {
                                 actionRef.current = value;
                             }}>
-                                <SelectTrigger className="w-[100px] max-sm:w-[90px] max-sm:text-[10px] bg-gray-200/30 dark:bg-black/5 dark:hover:bg-white/5 hover:bg-black/5 transition-all duration-300 text-xs rounded-lg before:bg-opacity-5 backdrop-blur-lg border border-gray-400/50 dark:border-white/20 dark:text-white p-2">
+                                <SelectTrigger className="w-[100px] max-sm:w-[90px] max-sm:text-[10px] bg-[rgba(229,231,235,0.3)] dark:bg-[rgba(0,0,0,0.05)] dark:hover:bg-[rgba(255,255,255,0.05)] transition-all duration-300 text-xs rounded-lg backdrop-blur-lg -webkit-backdrop-blur-lg border border-gray-400/50 dark:border-white/20 dark:text-white p-2">
                                     <SelectValue placeholder="Formatting" />
                                 </SelectTrigger>
                                 <SelectContent className="bg-gray-400 dark:text-white bg-opacity-20 backdrop-blur-lg border dark:border-white/10">
@@ -163,7 +163,7 @@ export default function Main() {
                         </div>
                     </div>
                     <div>
-                        <button className="bg-gray-200/30 dark:bg-black/5 rounded-lg before:bg-opacity-5 dark:hover:bg-white/5 hover:bg-black/5 backdrop-blur-lg border border-gray-400/50 dark:border-white/20 dark:text-white p-2" onClick={handleGenerate}>
+                        <button className="bg-[rgba(229,231,235,0.3)] dark:bg-[rgba(0,0,0,0.05)] rounded-lg backdrop-blur-lg -webkit-backdrop-blur-lg border border-gray-400/50 dark:border-white/20 dark:text-white p-2 dark:hover:bg-[rgba(255,255,255,0.05)] hover:bg-[rgba(0,0,0,0.05)]" onClick={handleGenerate}>
                             {isGenerating ? <HiStop className="text-xs animate-pulse" /> : <FaTurnUp className="text-xs" />}
                         </button>
                     </div>

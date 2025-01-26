@@ -79,6 +79,13 @@ body {
   }
 }
 
+@supports (-webkit-backdrop-filter: none) or (backdrop-filter: none) {
+  .backdrop-blur-lg {
+    -webkit-backdrop-filter: blur(16px);
+    backdrop-filter: blur(16px);
+  }
+}
+
 @layer base {
   * {
     @apply border-border;
