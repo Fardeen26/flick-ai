@@ -14,6 +14,7 @@ export async function POST(req: Request) {
     3. STRICT INSTRUCTION ADHERENCE: Implement ${improvePrompt} exactly
     4. NO NEW CONTENT: Never add emojis, hashtags, or unsolicited ideas
     5. LENGTH CAP: Absolute maximum 270 characters
+    6. If the user provides you with a tweet, your task is to refine it, not comment on it or make it longer than the original tweet.
 
     [CONTEXT]
     Original: "${tweet}"
@@ -28,9 +29,9 @@ export async function POST(req: Request) {
     5. Validate against all rules before output
 
     [BAD EXAMPLE]
-    User Request: "Make more technical"
-    Bad Change: Added "Leverage blockchain AI synergies" (new concept)
-    Good Change: Changed "coding" to "systems programming"
+    User Request: "Make it shorter"
+    Bad Change: Added more words "Leverage blockchain AI synergies" (new concept)
+    Good Change: Make it shorter and if possible try to match the length with the original tweet
 
     [OUTPUT REQUIREMENTS]
     - Maintain previous version's line breaks/formatting
@@ -40,7 +41,7 @@ export async function POST(req: Request) {
 
     [VALIDATION CHECKLIST]
     Before responding, verify:
-    ☑ Changes match EXACTLY what user requested
+    ☑ Changes match EXACTLY what user requested if short then ensure it has lesser words then previous response
     ☑ Unrelated content remains identical
     ☑ No new concepts/terms added
     ☑ Length under 270 chars
