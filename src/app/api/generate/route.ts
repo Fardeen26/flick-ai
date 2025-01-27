@@ -1,11 +1,8 @@
-import { GoogleGenerativeAI } from '@google/generative-ai';
+import { genAI } from '@/lib/genAI';
 import { NextResponse } from 'next/server';
 
-const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY as string);
-const mindset = process.env.SYSTEM_PROMPT ?? "";
-
 export async function POST(req: Request) {
-    const { tweet, mood, action } = await req.json();
+    const { tweet, mood, action, corePrompt } = await req.json();
 
     const prompt = `You are an expert tweet refinement engine. Strictly follow these rules:
 
@@ -19,7 +16,7 @@ export async function POST(req: Request) {
     7. If the user provides you with a tweet, your task is to refine it, not comment on it or make it longer than the original tweet.
 
     [PROCESS]
-    1. PRIMARY FOCUS: ${mindset} - make this drive all changes
+    1. PRIMARY FOCUS: ${corePrompt} - make this drive all changes
     2. TONE: Convert to ${mood} tone while preserving message
     3. ACTION: Execute "${action}" with:
     - Formatting: Logical line breaks, remove fluff
@@ -41,7 +38,7 @@ export async function POST(req: Request) {
     "${tweet}"
 
     [FINAL INSTRUCTIONS]
-    1. Analyze input against mindset (${mindset})
+    1. Analyze input against core prompt (${corePrompt})
     2. Apply ${mood} tone and ${action} action
     3. Generate ONLY the refined tweet meeting all rules
     4. Validate against all constraints before outputting`

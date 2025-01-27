@@ -20,9 +20,16 @@ import {
     TooltipProvider,
     TooltipTrigger,
 } from "@/components/ui/tooltip"
+import {
+    Popover,
+    PopoverContent,
+    PopoverTrigger,
+} from "@/components/ui/popover"
 import fontInter from "@/app/font"
 import Link from "next/link"
 import UsageCount from "./UsageCount"
+import { Settings } from "lucide-react"
+import CorePromptForm from "./CorePromptForm"
 
 export async function AppSidebar() {
     const session = await getServerSession(authOptions)
@@ -125,8 +132,22 @@ export async function AppSidebar() {
                         </SidebarMenu>
                     </SidebarGroupContent>
                 </SidebarGroup>
-                <SidebarFooter className="absolute bottom-0 w-full text-xl rounded-lg px-2 cursor-pointer">
-                    <div className="hover:bg-gray-200/10 p-3 rounded-lg">
+                <SidebarFooter className="absolute bottom-0 w-full px-2">
+                    <Popover>
+                        <PopoverTrigger>
+                            <div className="flex gap-1 text-xs items-center p-3 border border-white/20 rounded-lg hover:bg-gray-200/10 cursor-pointer">
+                                <span><Settings className="w-4 h-4" /></span>
+                                <span>Core Prompt</span>
+                                <span className="text-[10px] ml-2 py-[1px] w-12 rounded-xl bg-white text-black font-semibold">
+                                    New
+                                </span>
+                            </div>
+                        </PopoverTrigger>
+                        <PopoverContent className="space-y-3 bg-[#30353a] border-none z-50">
+                            <CorePromptForm />
+                        </PopoverContent>
+                    </Popover>
+                    <div className="hover:bg-gray-200/10 p-3 rounded-lg border border-white/20">
                         <UsageCount />
                     </div>
                 </SidebarFooter>

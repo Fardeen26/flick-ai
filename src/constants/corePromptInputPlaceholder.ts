@@ -1,0 +1,1 @@
+export const corePromptPlaceholder = `e.g.  Make tweets engaging, concise, and goal-aligned. Use multi-lines, relevant emojis, and a [tone, e.g., professional, casual].`;

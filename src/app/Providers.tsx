@@ -4,6 +4,7 @@ import ResultProvider from "@/context/ResultContext";
 import TweetProvider from "@/context/TweetContext";
 import { ThemeProvider } from "@/components/theme-provider";
 import { SessionProvider } from "next-auth/react";
+import CorePromptProvider from "@/context/CorePromptContext";
 
 export default function Providers({ children }: { children: React.ReactNode }) {
     return <SessionProvider>
@@ -13,11 +14,13 @@ export default function Providers({ children }: { children: React.ReactNode }) {
             enableSystem
             disableTransitionOnChange
         >
-            <TweetProvider>
-                <ResultProvider>
-                    {children}
-                </ResultProvider>
-            </TweetProvider>
+            <CorePromptProvider>
+                <TweetProvider>
+                    <ResultProvider>
+                        {children}
+                    </ResultProvider>
+                </TweetProvider>
+            </CorePromptProvider>
         </ThemeProvider>
     </SessionProvider>;
 }
