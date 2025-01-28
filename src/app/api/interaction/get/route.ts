@@ -1,12 +1,13 @@
 import { prisma } from '@/lib/prisma';
 import { getServerSession } from 'next-auth/next'
 import { authOptions } from "../../auth/[...nextauth]/options";
+import { NextResponse } from 'next/server';
 
 export async function GET() {
     const session = await getServerSession(authOptions)
 
     if (!session?.user) {
-        return Response.json(
+        return NextResponse.json(
             { success: false, message: 'Authentication required. Please sign in to access this resource.' },
             { status: 401 }
         );
@@ -20,7 +21,7 @@ export async function GET() {
         })
 
         if (!user) {
-            return Response.json(
+            return NextResponse.json(
                 { success: false, message: 'User account not found. Please verify your account status.' },
                 { status: 404 }
             );
@@ -39,18 +40,18 @@ export async function GET() {
         });
 
         if (!interactions) {
-            return Response.json(
+            return NextResponse.json(
                 { success: true, message: 'No interactions found.' },
                 { status: 200 }
             );
         }
 
-        return Response.json(
+        return NextResponse.json(
             { success: true, message: interactions },
             { status: 200 }
         );
     } catch (error) {
-        return Response.json(
+        return NextResponse.json(
             {
                 success: false,
                 message: error instanceof Error ? `Error fetching interactions ${error.message}` : 'An unexpected error occurred while fetching your interactions.'

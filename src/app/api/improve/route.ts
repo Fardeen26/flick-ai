@@ -61,22 +61,13 @@ export async function POST(req: Request) {
             }
         );
     } catch (error) {
-        let errorMessage = 'Failed to process your tweet. Please try again.';
-
-        if (error instanceof Error) {
-            if (error.message.includes('API key')) {
-                errorMessage = 'Authentication failed. Please check your API configuration.';
-            } else if (error.message.includes('model')) {
-                errorMessage = 'The AI model is currently unavailable. Please try again later.';
-            } else if (error.message.includes('content')) {
-                errorMessage = 'Invalid input detected. Please check your tweet and try again.';
-            } else if (error.message.includes('quota')) {
-                errorMessage = 'Request limit reached. Please try again later.';
-            }
-        }
-
         return NextResponse.json(
-            { success: false, message: errorMessage },
+            {
+                success: false,
+                message: error instanceof Error ?
+                    `Tweet improvement failed: ${error.message}` :
+                    'Our tweet improvement service is currently unavailable. Please try again later.'
+            },
             {
                 status: 500,
             }

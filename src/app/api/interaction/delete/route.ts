@@ -1,12 +1,13 @@
 import { prisma } from "@/lib/prisma";
 import { Prisma } from "@prisma/client";
+import { NextResponse } from "next/server";
 
 export async function DELETE(req: Request) {
     try {
         const { id } = await req.json();
 
         if (!id) {
-            return Response.json(
+            return NextResponse.json(
                 { success: false, message: "Interaction ID is required" },
                 { status: 400 }
             );
@@ -17,7 +18,7 @@ export async function DELETE(req: Request) {
             include: { user: true }
         });
 
-        return Response.json(
+        return NextResponse.json(
             { success: true, message: "Interaction deleted successfully" },
             { status: 200 }
         );
@@ -25,18 +26,18 @@ export async function DELETE(req: Request) {
     } catch (error) {
         if (error instanceof Prisma.PrismaClientKnownRequestError) {
             if (error.code === 'P2025') {
-                return Response.json(
+                return NextResponse.json(
                     { success: false, message: "Interaction not found" },
                     { status: 404 }
                 );
             }
-            return Response.json(
+            return NextResponse.json(
                 { success: false, message: "Database error", error: error.meta },
                 { status: 500 }
             );
         }
 
-        return Response.json(
+        return NextResponse.json(
             { success: false, message: "Internal server error" },
             { status: 500 }
         );
