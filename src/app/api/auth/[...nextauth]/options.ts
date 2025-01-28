@@ -1,7 +1,6 @@
+import { prisma } from "@/lib/prisma";
 import { NextAuthOptions } from "next-auth"
 import GoogleProvider from "next-auth/providers/google";
-import { PrismaClient } from "@prisma/client";
-const prisma = new PrismaClient();
 
 export const authOptions: NextAuthOptions = {
     providers: [
@@ -22,8 +21,9 @@ export const authOptions: NextAuthOptions = {
                     await prisma.user.create({
                         data: {
                             email: user.email!,
-                            name: user.name || null,
-                            profileImage: user.image || null,
+                            name: user.name,
+                            profileImage: user.image,
+                            corePrompt: process.env.SYSTEM_PROMPT
                         },
                     });
                 }

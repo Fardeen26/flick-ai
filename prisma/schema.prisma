@@ -12,6 +12,7 @@ model User {
   email        String        @unique
   name         String?
   profileImage String?
+  corePrompt   String?
   interactions Interaction[]
 }
 

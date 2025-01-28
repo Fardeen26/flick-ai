@@ -1,22 +1,28 @@
 "use client"
 
-import React, { useRef } from 'react'
-import { Button } from './ui/button'
-import useCorePrompt from '@/hooks/useCorePrompt';
+import React, { useRef } from 'react';
+import { Button } from './ui/button';
 import { toast } from 'sonner';
 import { corePromptPlaceholder } from '@/constants/corePromptInputPlaceholder';
+import axios, { AxiosError } from 'axios';
+import { ApiResponse } from '@/types/ApiResponse';
 
 export default function CorePromptForm() {
     const promptRef = useRef<HTMLTextAreaElement>(null);
-    const { SetCorePrompt } = useCorePrompt();
 
-    const saveCorePrompt = () => {
+    const saveCorePrompt = async () => {
         if (!promptRef.current?.value) {
-            toast.info('Provide a core prompt');
+            toast.info('Provide the core prompt');
             return;
         }
-        SetCorePrompt(promptRef.current?.value as string)
-        toast.success("Core prompt saved")
+        try {
+            const response = await axios.post<ApiResponse>('/api/corePrompt/save', { corePrompt: promptRef.current?.value })
+            toast.success(response.data.message);
+            promptRef.current.value = '';
+        } catch (error) {
+            const axiosError = error as AxiosError<ApiResponse>;
+            toast.error(axiosError.response?.data.message ?? 'Failed to refine the tweet');
+        }
     }
 
     return (

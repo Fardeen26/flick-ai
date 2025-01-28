@@ -21,8 +21,6 @@ import { useUsageTracker } from "@/hooks/useUsageTracker";
 import { ApiResponse } from "@/types/ApiResponse";
 import LoginModal from "./LoginModel";
 import { useRouter } from "next/navigation";
-import useCorePrompt from "@/hooks/useCorePrompt";
-
 
 export default function Main() {
     const [improvePrompt, setImprovePrompt] = useState('');
@@ -35,7 +33,6 @@ export default function Main() {
     const { tweet, setTweet } = useTweet();
     const { result, setResult } = useResult();
     const { incrementUsage, isLimitReached, resetUsage } = useUsageTracker();
-    const { corePrompt } = useCorePrompt()
     const { data: session } = useSession();
     const router = useRouter()
 
@@ -55,7 +52,7 @@ export default function Main() {
 
         setIsGenerating(true);
         try {
-            const response = await axios.post<ApiResponse>('/api/generate', { tweet, mood: moodRef.current, action: actionRef.current, corePrompt });
+            const response = await axios.post<ApiResponse>('/api/generate', { tweet, mood: moodRef.current, action: actionRef.current });
             incrementUsage();
             setResult(response.data.message);
         } catch (error) {
