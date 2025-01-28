@@ -23,6 +23,11 @@ export default function Result({ improvePrompt, isImprovingField, setImproveProm
                 <input
                     type="text"
                     onChange={(e) => setImprovePrompt(e.target.value)}
+                    onKeyDown={(e) => {
+                        if (e.key === 'Enter') {
+                            handleRegenerate();
+                        }
+                    }}
                     value={improvePrompt}
                     placeholder="Follow Up"
                     className={`dark:text-white bg-transparent text-xs w-0 py-0 transition-all duration-300 ${isImprovingField ? 'w-[35vw] max-sm:w-full px-2 border border-gray-400/50 dark:border-white/20' : 'w-0'} rounded-lg bg-opacity-10 backdrop-blur-lg dark:focus:outline-none dark:focus:border-white/20`}

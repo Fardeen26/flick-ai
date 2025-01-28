@@ -91,7 +91,7 @@ export async function AppSidebar() {
     return (
         <Sidebar>
             <SidebarContent>
-                <SidebarGroup>
+                <SidebarGroup className="overflow-y-auto">
                     <SidebarGroupLabel>
                         <div className="flex items-center gap-3 mt-4">
                             <span>
@@ -104,7 +104,7 @@ export async function AppSidebar() {
                         </div>
                     </SidebarGroupLabel>
                     <SidebarGroupContent className="mt-10">
-                        <SidebarMenu className="">
+                        <SidebarMenu>
                             {Object.entries(groupedInteractions).map(([period, items]) => (
                                 <div key={period}>
                                     <div className="text-sm text-gray-400 px-2 py-1">{period}</div>

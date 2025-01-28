@@ -162,7 +162,7 @@ export default function Main() {
                         </div>
                     </div>
                     <div>
-                        <button className="bg-[rgba(229,231,235,0.3)] dark:bg-[rgba(0,0,0,0.05)] rounded-lg backdrop-blur-lg -webkit-backdrop-blur-lg border border-gray-400/50 dark:border-white/20 dark:text-white p-2 dark:hover:bg-[rgba(255,255,255,0.05)] hover:bg-[rgba(0,0,0,0.05)]" onClick={handleGenerate}>
+                        <button className="bg-[rgba(229,231,235,0.3)] dark:bg-[rgba(0,0,0,0.05)] rounded-lg backdrop-blur-lg -webkit-backdrop-blur-lg border border-gray-400/50 dark:border-white/20 dark:text-white p-2 dark:hover:bg-[rgba(255,255,255,0.05)] hover:bg-[rgba(0,0,0,0.05)]" onClick={handleGenerate} disabled={isGenerating}>
                             {isGenerating ? <HiStop className="text-xs animate-pulse" /> : <FaTurnUp className="text-xs" />}
                         </button>
                     </div>
