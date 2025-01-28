@@ -8,7 +8,10 @@ Meet Flick.AI: Your ultimate AI-powered tweet-refining assistant. Whether you're
 
 - Next.js
 - TypeScript
+- Prisma
+- PostgreSQL
 - Google Gemini
+- NextAuth
 - Tailwind CSS
 
 ## 🚀 Getting Started
@@ -27,12 +30,16 @@ cd ghostgram
 npm install
 ```
 ### Configuration
-Create a `.env` file in the root folder of your project. Update it following the convention of the `.env.example` file. 
+Create a `.env` file in the root folder of your project.
 Here's an example:
 ```
+DATABASE_URL=
 GEMINI_API_KEY=
 SYSTEM_PROMPT=
 AI_MODEL=
+GOOGLE_CLIENT_ID=
+GOOGLE_CLIENT_SECRET=
+NEXTAUTH_SECRET=
 ```
 
 ### Running the Project
