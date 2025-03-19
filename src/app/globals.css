@@ -95,3 +95,18 @@ body {
     @apply bg-background text-foreground;
   }
 }
+
+
+
+
+.btn {
+  appearance: none;
+  -webkit-appearance: none; /* Safari-specific reset */
+  -moz-appearance: none;
+  /* background-color: #222;  intended background  */
+  /* color: white; */
+}
+.btn {
+  -webkit-backdrop-filter: none; /* Disable background filter for Safari */
+  background-clip: padding-box; /* Ensure background fills button */
+}
