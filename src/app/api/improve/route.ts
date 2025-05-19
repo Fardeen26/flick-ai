@@ -1,8 +1,27 @@
 import { genAI } from '@/lib/genAI';
+import { getServerSession } from 'next-auth';
 import { NextResponse } from 'next/server';
+import { authOptions } from '../auth/[...nextauth]/options';
+import { prisma } from '@/lib/prisma';
 
 export async function POST(req: Request) {
     const { tweet, result, improvePrompt } = await req.json();
+    const session = await getServerSession(authOptions);
+    const forwarded = req.headers.get('x-forwarded-for');
+    const userIp: string = forwarded?.split(',')[0]?.trim() || 'Unknown IP';
+
+    const ipResult = await prisma.userIp.findFirst({
+        where: {
+            ipAddress: userIp ?? ''
+        }
+    })
+
+    if (!session || !session.user && ipResult) {
+        return Response.json(
+            { success: false, message: 'Credit limit reached, please signup' },
+            { status: 401 }
+        );
+    }
 
     const prompt = `You are a tweet EDITOR executing specific user-requested changes. Follow these rules:
 

@@ -26,3 +26,8 @@ model Interaction {
   userId     Int
   user       User     @relation(fields: [userId], references: [id])
 }
+
+model UserIp {
+  id        String @id @default(uuid())
+  ipAddress String
+}

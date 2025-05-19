@@ -7,13 +7,35 @@ import { prisma } from '@/lib/prisma';
 export async function POST(req: Request) {
     const { tweet, mood, action } = await req.json();
     const session = await getServerSession(authOptions);
+    const forwarded = req.headers.get('x-forwarded-for');
+    const userIp: string = forwarded?.split(',')[0]?.trim() || 'Unknown IP';
+
+    const ipResult = await prisma.userIp.findFirst({
+        where: {
+            ipAddress: userIp ?? ''
+        }
+    })
+
+    if (!session && ipResult) {
+        return Response.json(
+            { success: false, message: 'Credit limit reached, please signup' },
+            { status: 401 }
+        );
+    }
+
     let corePrompt;
 
     try {
-
-        if (!session?.user) {
+        if (!session?.user || !ipResult) {
             corePrompt = process.env.SYSTEM_PROMPT;
+            await prisma.userIp.create({
+                data: {
+                    ipAddress: userIp
+                }
+            })
         } else {
+            if (!session?.user) return;
+
             const user = await prisma.user.findFirst({
                 where: {
                     email: session.user.email ?? ""
