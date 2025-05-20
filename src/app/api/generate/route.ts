@@ -18,7 +18,7 @@ export async function POST(req: Request) {
 
     if (!session && ipResult) {
         return Response.json(
-            { success: false, message: 'Credit limit reached, please signup' },
+            { success: false, message: 'Credit limit reached, signup to get more credits!' },
             { status: 401 }
         );
     }
